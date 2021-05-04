@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Content from './content'
+import Container from './container'
+import Header from './header'
+import Posts from './posts'
+import PostCard from './post-card'
+import Footer from './footer'
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Header />
+      <Container>
+        <Content>
+          <Posts>
+            <PostCard></PostCard>
+            <PostCard></PostCard>
+          </Posts>
+        </Content>
+      </Container>
+      <Footer />
+    </>
+  )
 }
 
-export default App;

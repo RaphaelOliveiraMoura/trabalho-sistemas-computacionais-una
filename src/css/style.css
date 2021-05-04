@@ -1,0 +1,153 @@
+*{
+    box-sizing: border-box;
+}
+
+body, html{
+    margin: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+body{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 18px;
+    background: url("../img/white-background.jpg") no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #000;
+}
+
+h1{
+    margin: 0;
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: #fff;
+}
+
+/*------------------------------HOME---------------------------------------*/
+
+header{
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    min-height: 60px;
+    background: linear-gradient(to right, #2087b3de, #2087b3d8, #2087b331);
+}
+
+header h1{
+    color: #fff;
+    text-shadow: -1px -1px #000;
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    width: 70vw;
+    margin: 0 auto;
+}
+
+#header-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+nav ul{
+    display: flex;
+}
+
+nav a{
+    display: inline-block;
+    padding: 0 2em;
+    border-right: 1px solid;
+    border-left: 1px solid #858585;
+    width: 100%;
+}
+
+nav ul li:first-child a{
+    border-left: none;
+}
+
+nav ul li:last-child a{
+    border-right: none;
+}
+
+#content{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.post-card{
+    display: flex;
+    flex-direction: column;
+    max-width: 70vw;
+    min-width: 240px;
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 3px #858585;
+    background: #ffffff;
+}
+
+.post-card-header{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.post-card h1{
+    font-size: 1.5em;
+    color: #2087b3de;
+}
+
+.post-card span{
+    margin: 10px 0;
+}
+
+.post-card a{
+    color: #fff;
+    background: #2087b3de;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.post-card a:hover{
+    color: #2087b3de;
+    background: #fff;
+}
+
+.post-card p{
+    margin: 10px 0;
+}
+
+@media only screen and (max-width: 830px) { 
+    .container #header-container{
+        justify-content: center;
+    }
+    nav{
+        display: none;
+    }
+}
+
+footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    min-height: 60px;
+    background: linear-gradient(to right, #2087b3de, #2087b3d8, #2087b331);
+    color: #fff;
+}
+
+
