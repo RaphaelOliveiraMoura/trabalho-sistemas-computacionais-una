@@ -1,10 +1,10 @@
-import React from 'react'
-import Content from './content'
-import Container from './container'
-import Header from './header'
-import Posts from './posts'
-import PostCard from './post-card'
-import Footer from './footer'
+import React from 'react';
+import Content from './components/content';
+import Container from './components/container';
+import Header from './components/header';
+import Posts from './components/posts';
+import PostCard from './components/post-Card';
+import Footer from './components/footer';
 
 export default function App() {
   return (

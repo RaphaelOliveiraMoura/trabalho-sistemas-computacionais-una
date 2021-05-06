@@ -66,10 +66,17 @@ nav ul{
 nav a{
     display: inline-block;
     padding: 0 2em;
-    border-right: 1px solid;
+    border-right: 1px solid #fff;
     border-left: 1px solid #858585;
     width: 100%;
 }
+
+nav a:hover{
+color: #000;
+border-right: 1px solid #fff;
+border-left: 1px solid #858585;
+}
+
 
 nav ul li:first-child a{
     border-left: none;
@@ -104,8 +111,58 @@ nav ul li:last-child a{
     justify-content: space-between;
 }
 
+.rating{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.rating-fieldset{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: row-reverse;
+    border: none;
+}
+
+.rating-fieldset legend{
+    margin: 0 auto;
+}
+
+
+.rating input[type="radio"] {
+    display: none;
+}
+
+.rating {
+	width: 250px;
+	height: 40px;
+	padding: 40px 50px;
+}
+
+.rating label {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+		
+.rating label::before {
+    content: "\2605";
+    font-size: 42px;
+    color: #CCC;
+    line-height: 1;
+}
+
+.rating input:checked ~ label::before, 
+.rating :not(:checked) > label:hover::before,
+.rating :not(:checked) > label:hover ~ label::before{
+	color: #F9DF4A;
+}
+
 .post-card h1{
     font-size: 1.5em;
+    margin: 10px 0;
     color: #2087b3de;
 }
 
@@ -118,6 +175,7 @@ nav ul li:last-child a{
     background: #2087b3de;
     margin: 0 auto;
     padding: 10px;
+    border: 1px solid #2087b3de;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -125,6 +183,7 @@ nav ul li:last-child a{
 .post-card a:hover{
     color: #2087b3de;
     background: #fff;
+    border: 1px solid #2087b3de;
 }
 
 .post-card p{
@@ -150,4 +209,44 @@ footer{
     color: #fff;
 }
 
+/*--------------------------Article Page----------------------------------*/
+.article-container{
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 3px #858585;
+    background: #ffffff;
+}
+.article-header{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-bottom: 3px solid #2088b3;
+}
 
+.article-body{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.article-comments{
+    display: flex;
+    flex-direction: column;
+    border-top: 3px solid #2088b3;
+}
+
+.article-comments h2{
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.article-comments #comment-text{
+    margin: 20px 0;
+}
+
+.article-comments input[type="submit"]{
+    height: 40px;
+}
