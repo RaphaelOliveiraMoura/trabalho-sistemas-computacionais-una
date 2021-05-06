@@ -1,9 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './css/style.css'
+import ArticlePage from './articlePage';
+import './css/style.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 ReactDOM.render(
-  <App />, document.getElementById('root')
+  <BrowserRouter>
+    <Switch>
+      <Route exact path='/' component={App} />
+      <Route exact path='/articlePage' component={ArticlePage} />
+    </Switch>
+  </BrowserRouter>
+  , document.getElementById('root')
 );
 
