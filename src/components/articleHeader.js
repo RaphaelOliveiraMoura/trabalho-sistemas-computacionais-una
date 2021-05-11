@@ -1,15 +1,18 @@
 import React from 'react';
-import Rating from './rating';
+import Rating from '@material-ui/lab/Rating';
 
 export default function ArticleHeader() {
     return (
         <>
             <div className="article-header">
-                <div>
+                <div className="article-title">
                     <h1>Título Postagem</h1>
                     <span>Postado em ...</span>
                 </div>
-                <Rating />
+                <div className="rating">
+                    <h3>Avaliação</h3>
+                    <Rating name="avaliacao" size="large" />
+                </div>
             </div>
         </>
     )

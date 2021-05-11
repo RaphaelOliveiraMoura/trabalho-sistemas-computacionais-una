@@ -111,54 +111,6 @@ nav ul li:last-child a{
     justify-content: space-between;
 }
 
-.rating{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-}
-
-.rating-fieldset{
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    flex-direction: row-reverse;
-    border: none;
-}
-
-.rating-fieldset legend{
-    margin: 0 auto;
-}
-
-
-.rating input[type="radio"] {
-    display: none;
-}
-
-.rating {
-	width: 250px;
-	height: 40px;
-	padding: 40px 50px;
-}
-
-.rating label {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-}
-		
-.rating label::before {
-    content: "\2605";
-    font-size: 42px;
-    color: #CCC;
-    line-height: 1;
-}
-
-.rating input:checked ~ label::before, 
-.rating :not(:checked) > label:hover::before,
-.rating :not(:checked) > label:hover ~ label::before{
-	color: #F9DF4A;
-}
 
 .post-card h1{
     font-size: 1.5em;
@@ -190,7 +142,22 @@ nav ul li:last-child a{
     margin: 10px 0;
 }
 
-@media only screen and (max-width: 830px) { 
+.rating{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.rating span{
+    margin-top: 2px;
+}
+
+.rating h3{
+    margin: 0;
+}
+
+@media only screen and (max-width: 860px) { 
     .container #header-container{
         justify-content: center;
     }
@@ -216,13 +183,26 @@ footer{
     border-radius: 5px;
     box-shadow: 1px 1px 3px 3px #858585;
     background: #ffffff;
+    min-width: 230px;
 }
 .article-header{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: center;
     justify-content: space-between;
     border-bottom: 3px solid #2088b3;
+}
+
+.article-header .rating, .article-header .article-title{
+    margin-bottom: 25px;
+}
+
+@media only screen and (max-width: 610px) { 
+    .article-header{
+        justify-content: center;
+        text-align: center;
+    }
 }
 
 .article-body{
@@ -232,10 +212,17 @@ footer{
     justify-content: center;
 }
 
+.article-body img{
+    width: 100%;
+}
+
+
 .article-comments{
     display: flex;
     flex-direction: column;
     border-top: 3px solid #2088b3;
+    border-bottom: 3px solid #2088b3;
+    padding-bottom: 20px;
 }
 
 .article-comments h2{
@@ -245,8 +232,15 @@ footer{
 
 .article-comments #comment-text{
     margin: 20px 0;
+    resize: none;
+    border: 1px solid #00000062;
+    box-shadow: 1px 1px 3px #000;
 }
 
 .article-comments input[type="submit"]{
     height: 40px;
+}
+
+#logo{
+    max-width: 260px;
 }
