@@ -1,18 +1,20 @@
 import React from 'react';
 import Container from './container';
+import Image from './../img/logo.jpeg';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
     return (
         <header>
             <Container>
                 <div id="header-container">
-                    <h1 id="logo">LogoBlog</h1>
+                    <img id="logo" src={Image} alt="Logo"></img>
                     <nav>
                         <ul>
-                            <li><a href="../../public/index.html">Python</a></li>
-                            <li><a href="../../public/index.html">Java</a></li>
-                            <li><a href="../../public/index.html">JavaScript</a></li>
-                            <li><a href="../../public/index.html">Flutter</a></li>
+                            <li><Link to="/">Python</Link></li>
+                            <li><Link to="/">Java</Link></li>
+                            <li><Link to="/">JavaScript</Link></li>
+                            <li><Link to="/">Flutter</Link></li>
                         </ul>
                     </nav>
                 </div>

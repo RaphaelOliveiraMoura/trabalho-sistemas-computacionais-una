@@ -1,6 +1,6 @@
 import React from 'react';
 import ExampleImg from './../img/post-img.jpg';
-import Rating from './rating';
+import Rating from '@material-ui/lab/Rating';
 import { Link } from 'react-router-dom';
 
 export default function PostCard() {
@@ -11,7 +11,11 @@ export default function PostCard() {
                     <h1>Título Postagem</h1>
                     <span>Postado em ...</span>
                 </div>
-                <Rating />
+                <div className="rating">
+                    <h3>Avaliação</h3>
+                    <Rating size="large" readOnly value="3" />
+                </div>
+
             </div>
 
             <img src={ExampleImg} alt="Capa da postagem" />
