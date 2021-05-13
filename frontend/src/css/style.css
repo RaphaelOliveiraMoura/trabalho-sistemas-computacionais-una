@@ -48,13 +48,13 @@ header h1{
 }
 
 .container{
-    width: 70vw;
+    width: 85vw;
     margin: 0 auto;
 }
 
 #header-container{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
 }
@@ -63,27 +63,21 @@ nav ul{
     display: flex;
 }
 
-nav a{
+nav a:before{
+    content: "";
     display: inline-block;
-    padding: 0 2em;
     border-right: 1px solid #fff;
-    border-left: 1px solid #858585;
-    width: 100%;
+    border-left: 1px solid #5e5e5e;
+    height: 100%;
+    margin: -5px 2em;
 }
 
 nav a:hover{
-color: #000;
-border-right: 1px solid #fff;
-border-left: 1px solid #858585;
+    color: #000;
 }
 
-
-nav ul li:first-child a{
-    border-left: none;
-}
-
-nav ul li:last-child a{
-    border-right: none;
+nav ul li:first-child a:before{
+    display: none;
 }
 
 #content{
@@ -95,7 +89,7 @@ nav ul li:last-child a{
 .post-card{
     display: flex;
     flex-direction: column;
-    max-width: 70vw;
+    max-width: 65vw;
     min-width: 240px;
     margin: 20px 0;
     padding: 10px;
@@ -110,7 +104,6 @@ nav ul li:last-child a{
     flex-wrap: wrap;
     justify-content: space-between;
 }
-
 
 .post-card h1{
     font-size: 1.5em;
@@ -157,15 +150,6 @@ nav ul li:last-child a{
     margin: 0;
 }
 
-@media only screen and (max-width: 860px) { 
-    .container #header-container{
-        justify-content: center;
-    }
-    nav{
-        display: none;
-    }
-}
-
 footer{
     display: flex;
     align-items: center;
@@ -178,13 +162,15 @@ footer{
 
 /*--------------------------Article Page----------------------------------*/
 .article-container{
-    margin: 20px 0;
+    margin: 20px auto;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 1px 1px 3px 3px #858585;
     background: #ffffff;
-    min-width: 230px;
+    min-width: 240px;
+    max-width: 65vw;
 }
+
 .article-header{
     display: flex;
     flex-direction: row;
@@ -198,13 +184,6 @@ footer{
     margin-bottom: 25px;
 }
 
-@media only screen and (max-width: 610px) { 
-    .article-header{
-        justify-content: center;
-        text-align: center;
-    }
-}
-
 .article-body{
     display: flex;
     flex-direction: column;
@@ -215,7 +194,6 @@ footer{
 .article-body img{
     width: 100%;
 }
-
 
 .article-comments{
     display: flex;
@@ -233,14 +211,125 @@ footer{
 .article-comments #comment-text{
     margin: 20px 0;
     resize: none;
-    border: 1px solid #00000062;
+    border-radius: 5px;
+    border: 1px solid #2087b3de;
     box-shadow: 1px 1px 3px #000;
 }
 
 .article-comments input[type="submit"]{
+    align-self: center;
+    width: 30%;
     height: 40px;
+    border: 1px solid #2087b3de;
+    background-color: #2087b3de;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    padding: 6px 20px;
+    text-align: center;
 }
 
 #logo{
-    max-width: 260px;
+    max-width: 240px;
+}
+
+/*-----------------------------------Criar artigo Page----------------------------*/
+.create-article-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    margin: 20px auto;
+    padding: 20px 0;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 3px #858585;
+    background: #ffffff;
+    min-width: 240px;
+    max-width: 65vw;
+}
+
+.create-article-form textarea, .create-article-form input, .create-article-form label{
+    resize: none;
+    width: 70%;
+    max-width: 700px;
+    min-width: 200px;
+    margin: 10px 0;
+    border: 1px solid #2087b3de;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px #000;
+}
+
+.create-article-form textarea{
+    font-size: 1em;
+}
+
+.create-article-form input[type=file]{
+    display: none;
+}
+
+.create-article-form label{
+    background-color: #2087b3de;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    padding: 6px 20px;
+    text-align: center;
+}
+
+.create-article-form input[type="submit"]{
+    width: 20%;
+    background-color: #2087b3de;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    padding: 6px 20px;
+    text-align: center;
+}
+
+#create-title{
+    height: 40px;
+    font-size: 1em;
+}
+
+#create-description{
+    height: 120px;
+    margin-bottom: 0;
+}
+
+#create-article{
+    height: 500px;
+}
+
+/*-----------------responsividade---------------------------*/
+
+@media only screen and (max-width: 1040px) { 
+    .container #header-container{
+        flex-direction: column;
+        justify-content: center;
+    }
+
+}
+
+@media only screen and (max-width: 650px) { 
+    .article-header, .post-card-header{
+        justify-content: center;
+        text-align: center;
+    }
+
+    nav ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+    }
+
+    nav ul li{
+        margin: 10px 0;
+    }
+
+    nav a:before{
+        display: none;
+    }
+
 }
