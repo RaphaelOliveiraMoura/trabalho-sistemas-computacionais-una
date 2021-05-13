@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function ArticleContainer({ children }) {
     return (
-        <div className="article-container">
+        <article className="article-container">
             {children}
-        </div>
+        </article>
     )
 }

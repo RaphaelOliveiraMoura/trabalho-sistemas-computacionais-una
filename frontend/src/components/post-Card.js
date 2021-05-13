@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export default function PostCard() {
     return (
-        <div className="post-card">
+        <article className="post-card">
             <div className="post-card-header">
                 <div>
                     <h1>Título Postagem</h1>
@@ -13,7 +13,7 @@ export default function PostCard() {
                 </div>
                 <div className="rating">
                     <h3>Avaliação</h3>
-                    <Rating size="large" readOnly value="3" />
+                    <Rating size="large" readOnly value={3} />
                 </div>
 
             </div>
@@ -27,6 +27,6 @@ export default function PostCard() {
                 <span>Ler mais...</span>
             </Link>
 
-        </div>
+        </article>
     )
 }
