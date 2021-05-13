@@ -111,7 +111,6 @@ nav ul li:last-child a{
     justify-content: space-between;
 }
 
-
 .post-card h1{
     font-size: 1.5em;
     margin: 10px 0;
@@ -216,7 +215,6 @@ footer{
     width: 100%;
 }
 
-
 .article-comments{
     display: flex;
     flex-direction: column;
@@ -244,3 +242,43 @@ footer{
 #logo{
     max-width: 260px;
 }
+
+/*-----------------------------------Criar artigo Page----------------------------*/
+.create-article-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    margin: 20px 0;
+    padding: 20px 0;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 3px #858585;
+    background: #ffffff;
+    min-width: 230px;
+}
+
+.create-article-form textarea, .create-article-form input{
+    resize: none;
+    width: 70%;
+    max-width: 700px;
+    min-width: 200px;
+    margin: 10px 0;   
+}
+
+.create-article-form textarea{
+    font-size: 1em;
+}
+#title{
+    height: 40px;
+    font-size: 1em;
+}
+
+#description{
+    height: 120px;
+}
+
+#article{
+    height: 500px;
+}
+
