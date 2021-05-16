@@ -195,6 +195,11 @@ footer{
     margin-bottom: 25px;
 }
 
+.article-header .article-title > span{
+    display: block;
+    margin: 10px 0 0 0;
+}
+
 .article-body{
     display: flex;
     flex-direction: column;
