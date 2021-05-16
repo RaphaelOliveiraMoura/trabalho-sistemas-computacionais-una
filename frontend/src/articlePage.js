@@ -1,7 +1,7 @@
 import React from 'react';
 import ArticleContainer from './components/articleContainer';
 import ArticleBody from './components/articleBody';
-import ArticleComments from './components/articleComments';
+import ArticleFooter from './components/articleFooter';
 import ArticleHeader from './components/articleHeader';
 import Container from './components/container';
 import Footer from './components/footer';
@@ -15,7 +15,7 @@ export default function ArticlePage() {
                 <ArticleContainer>
                     <ArticleHeader />
                     <ArticleBody />
-                    <ArticleComments />
+                    <ArticleFooter />
                 </ArticleContainer>
             </Container>
             <Footer />

@@ -11,7 +11,7 @@ export default function ArticleHeader() {
                 </div>
                 <div className="rating">
                     <h3>Avaliação</h3>
-                    <Rating name="avaliacao" size="large" />
+                    <Rating name="avaliacao" size="large" readOnly value={3} />
                 </div>
             </div>
         </>

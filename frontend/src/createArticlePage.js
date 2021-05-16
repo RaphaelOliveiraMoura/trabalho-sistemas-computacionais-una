@@ -11,14 +11,13 @@ export default function CreateArticle() {
         if (!title || !description || !articleBody) {
             return alert("Todos os campos devem ser preenchidos");
         };
-        const postDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     };
 
     function setArticle(e) {
         const target = e.target;
         const value = target.value;
         const name = target.name;
-        article.[name] = value;
+        article[name] = value;
     };
 
     return (
