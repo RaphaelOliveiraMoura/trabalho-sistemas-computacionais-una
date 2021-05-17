@@ -1,23 +1,16 @@
-import { AuthorizationService } from '@/data/services/authorization';
+import { buildAuthorizationService } from '../services/authorization';
+
 import { GetPostService } from '@/data/services/get-post';
-import {
-  LocalMemoryPostRepository,
-  LocalMemoryUserRepository,
-} from '@/infra/repositories';
-import { JWTHasher } from '@/infra/utils';
-import { GetPostController } from '@/presentation/controllers/get-post';
+import { LocalMemoryPostRepository } from '@/infra/repositories';
+import { GetPostController } from '@/presentation/controllers';
 
 export function buildGetPostController() {
   const postRepository = new LocalMemoryPostRepository();
   const getPostService = new GetPostService(postRepository);
 
-  const hasher = new JWTHasher();
-  const userRepository = new LocalMemoryUserRepository();
-  const authorizationService = new AuthorizationService(userRepository, hasher);
-
   const controller = new GetPostController(
     getPostService,
-    authorizationService
+    buildAuthorizationService()
   );
 
   return controller;
