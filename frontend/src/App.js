@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Content from './components/content';
 import Container from './components/container';
 import Header from './components/header';
@@ -7,7 +7,11 @@ import PostCard from './components/postCard';
 import Footer from './components/footer';
 
 export default function App() {
-  const [posts, setPosts] = useState("");
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    mountPage()
+  }, [])
+
   async function mountPage() {
     //const pagesRequest = await fetch();
     //const pagesResponse = await pagesRequest.json();

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ArticleContainer from './components/articleContainer';
 import ArticleBody from './components/articleBody';
 import ArticleFooter from './components/articleFooter';
@@ -8,7 +8,12 @@ import Footer from './components/footer';
 import Header from './components/header';
 
 export default function ArticlePage() {
-    const [article, setArticle] = useState("");
+    const [article, setArticle] = useState([]);
+    useEffect(() => {
+        mountArticle()
+
+    }, [])
+
     function mountArticle() {
         //const articleRequest = await fetch();
         //const articleResponse = await articleRequest.json();
@@ -36,7 +41,7 @@ export default function ArticlePage() {
             <Header />
             <Container>
                 {
-                    !article ? mountArticle() : article.map(atual => <ArticleContainer key={atual.id}><ArticleHeader post={atual} /><ArticleBody post={atual} /><ArticleFooter post={atual} /></ArticleContainer>)
+                    article.map(atual => <ArticleContainer key={atual.id}><ArticleHeader post={atual} /><ArticleBody post={atual} /><ArticleFooter post={atual} /></ArticleContainer>)
                 }
             </Container>
             <Footer />
