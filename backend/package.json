@@ -10,7 +10,7 @@
     "build": "rimraf build && tsc -p tsconfig-build.json",
     "start": "node build/index.js",
     "check": "npm-check -s -u",
-    "postinstall": "husky install",
+    "postinstall": "cd .. && husky install backend/.husky",
     "test": "jest --passWithNoTests --runInBand --no-cache",
     "test:unit": "yarn test -- --watch -c jest-unit-config.js",
     "test:integration": "yarn test -- --watch -c jest-integration-config.js",
