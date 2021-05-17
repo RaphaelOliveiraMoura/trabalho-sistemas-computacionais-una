@@ -15,6 +15,7 @@ body{
     background-size: cover;
     background-attachment: fixed;
     color: #000;
+
 }
 
 h1{
@@ -28,6 +29,16 @@ ul{
 a{
     text-decoration: none;
     color: #fff;
+}
+
+input[type=submit]{
+    background-color: #2087b3de;
+    border: 1px solid #2087b3de;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    padding: 6px 20px;
+    text-align: center;
 }
 
 /*------------------------------HOME---------------------------------------*/
@@ -184,6 +195,11 @@ footer{
     margin-bottom: 25px;
 }
 
+.article-header .article-title > span{
+    display: block;
+    margin: 10px 0 0 0;
+}
+
 .article-body{
     display: flex;
     flex-direction: column;
@@ -195,12 +211,31 @@ footer{
     width: 100%;
 }
 
-.article-comments{
+.article-footer{
     display: flex;
     flex-direction: column;
     border-top: 3px solid #2088b3;
     border-bottom: 3px solid #2088b3;
-    padding-bottom: 20px;
+    padding: 20px 0;
+}
+
+.article-rate{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.article-rate > *{
+    margin: 10px 0;
+}
+
+.article-rate > span:first-child{
+    border-bottom: 2px solid #2088b3;
+}
+
+.article-comments{
+    display: flex;
+    flex-direction: column; 
 }
 
 .article-comments h2{
@@ -219,14 +254,8 @@ footer{
 .article-comments input[type="submit"]{
     align-self: center;
     width: 30%;
+    min-width: 100px;
     height: 40px;
-    border: 1px solid #2087b3de;
-    background-color: #2087b3de;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    padding: 6px 20px;
-    text-align: center;
 }
 
 #logo{
@@ -279,12 +308,6 @@ footer{
 
 .create-article-form input[type="submit"]{
     width: 20%;
-    background-color: #2087b3de;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    padding: 6px 20px;
-    text-align: center;
 }
 
 #create-title{
