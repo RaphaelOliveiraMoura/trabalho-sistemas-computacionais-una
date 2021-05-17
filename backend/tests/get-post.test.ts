@@ -9,7 +9,7 @@ import { PostRepository, UserRepository } from '@/tests/repositories';
 const postRepository = new PostRepository();
 const userRepository = new UserRepository();
 
-describe('CommentPost', () => {
+describe('GetPost', () => {
   beforeEach(async () => {
     await postRepository.deleteAll();
     await userRepository.deleteAll();
@@ -18,12 +18,12 @@ describe('CommentPost', () => {
   });
 
   test('should return 401 when try acesss route without authorization', async () => {
-    const response = await supertest(app).post('/posts/1/comment').send();
+    const response = await supertest(app).get('/posts/1').send();
 
     expect(response.status).toBe(401);
   });
 
-  test('should comment in a post', async () => {
+  test('should get a post by id', async () => {
     const { author, ...post } = new PostBuilder().build();
 
     const createdAuthor = await userRepository.create(author);
@@ -32,44 +32,28 @@ describe('CommentPost', () => {
       authorId: createdAuthor.id,
     });
 
-    const { authorization, user } = await signIn(app);
-    const response = await supertest(app)
-      .post(`/posts/${createdPost.id}/comment`)
-      .set('authorization', authorization)
-      .send({ text: 'My random comment' });
-
-    expect(response.status).toBe(200);
-    expect(response.body.text).toBe('My random comment');
-    expect(response.body.author.id).toBe(user.id);
-  });
-
-  test('should return 400 when try comment at invalid post', async () => {
     const { authorization } = await signIn(app);
     const response = await supertest(app)
-      .post(`/posts/invalid-post/comment`)
+      .get(`/posts/${createdPost.id}`)
       .set('authorization', authorization)
-      .send({ text: 'My random comment' });
+      .send();
+
+    expect(response.status).toBe(200);
+    expect(response.body.id).toBe(createdPost.id);
+    expect(response.body.title).toBe(createdPost.title);
+    expect(response.body.description).toBe(createdPost.description);
+    expect(response.body.image).toBe(createdPost.image);
+    expect(response.body.body).toBe(createdPost.body);
+  });
+
+  test('should return 400 when try get a post with invalid id', async () => {
+    const { authorization } = await signIn(app);
+    const response = await supertest(app)
+      .get(`/posts/1`)
+      .set('authorization', authorization)
+      .send();
 
     expect(response.status).toBe(400);
     expect(response.body.error).toBe('invalid post');
-  });
-
-  test('should return 400 when try comment with invalid payload', async () => {
-    const { author, ...post } = new PostBuilder().build();
-
-    const createdAuthor = await userRepository.create(author);
-    const createdPost = await postRepository.create({
-      ...post,
-      authorId: createdAuthor.id,
-    });
-
-    const { authorization } = await signIn(app);
-    const response = await supertest(app)
-      .post(`/posts/${createdPost.id}/comment`)
-      .set('authorization', authorization)
-      .send({ invalid: 'Payload' });
-
-    expect(response.status).toBe(400);
-    expect(response.body.error).toBe('text is required');
   });
 });
