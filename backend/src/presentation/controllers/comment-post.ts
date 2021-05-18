@@ -15,6 +15,15 @@ import {
 import { BodyValidationError } from '@/presentation/errors';
 import { Validation } from '@/validation/contracts';
 
+type CommentPostControllerResponse = {
+  id: string;
+  text: string;
+  author: {
+    email: string;
+    name: string;
+  };
+};
+
 export class CommentPostController implements Controller {
   constructor(
     private readonly commentPostService: CommentPostService,
@@ -24,7 +33,7 @@ export class CommentPostController implements Controller {
 
   async handle(
     httpRequest: HttpRequest<CommentPost.Params>
-  ): Promise<HttpResponse<CommentPost.Result | HttpResponseError>> {
+  ): Promise<HttpResponse<CommentPostControllerResponse | HttpResponseError>> {
     try {
       const { authorization } = httpRequest.headers;
       const user = await this.authorizationService.authorize(authorization);
@@ -41,7 +50,14 @@ export class CommentPostController implements Controller {
         text,
       });
 
-      return ok(comment);
+      return ok({
+        id: comment.id,
+        text: comment.text,
+        author: {
+          email: comment.author.email,
+          name: comment.author.name,
+        },
+      });
     } catch (error) {
       switch (error.constructor) {
         case InvalidAuthorizationError:

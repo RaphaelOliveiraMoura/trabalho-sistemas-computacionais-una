@@ -13,6 +13,7 @@ import {
   unauthorized,
 } from '@/presentation/contracts';
 import { BodyValidationError } from '@/presentation/errors';
+import { PostViewModel } from '@/presentation/view-models';
 import { Validation } from '@/validation/contracts';
 
 export class RatePostController implements Controller {
@@ -24,7 +25,7 @@ export class RatePostController implements Controller {
 
   async handle(
     httpRequest: HttpRequest<RatePost.Params>
-  ): Promise<HttpResponse<RatePost.Result | HttpResponseError>> {
+  ): Promise<HttpResponse<PostViewModel | HttpResponseError>> {
     try {
       const { authorization } = httpRequest.headers;
       const user = await this.authorizationService.authorize(authorization);
@@ -41,7 +42,7 @@ export class RatePostController implements Controller {
         rating,
       });
 
-      return ok(post);
+      return ok(PostViewModel.parse(post));
     } catch (error) {
       switch (error.constructor) {
         case InvalidAuthorizationError:

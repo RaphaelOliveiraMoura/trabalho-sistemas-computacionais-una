@@ -1,7 +1,6 @@
 import { CreatePostService } from '@/data/services';
 import { AuthorizationService } from '@/data/services/authorization';
 import { InvalidAuthorizationError } from '@/domain/errors';
-import { CreatePost } from '@/domain/use-cases';
 import {
   badRequest,
   Controller,
@@ -13,6 +12,7 @@ import {
   unauthorized,
 } from '@/presentation/contracts';
 import { BodyValidationError } from '@/presentation/errors';
+import { PostViewModel } from '@/presentation/view-models';
 import { Validation } from '@/validation/contracts';
 
 export class CreatePostController implements Controller {
@@ -24,7 +24,7 @@ export class CreatePostController implements Controller {
 
   async handle(
     httpRequest: HttpRequest
-  ): Promise<HttpResponse<CreatePost.Result | HttpResponseError>> {
+  ): Promise<HttpResponse<PostViewModel | HttpResponseError>> {
     try {
       const { authorization } = httpRequest.headers;
       const user = await this.authorizationService.authorize(authorization);
@@ -42,7 +42,7 @@ export class CreatePostController implements Controller {
         authorId: user.id,
       });
 
-      return created(post);
+      return created(PostViewModel.parse(post));
     } catch (error) {
       switch (error.constructor) {
         case InvalidAuthorizationError:

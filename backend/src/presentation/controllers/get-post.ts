@@ -1,7 +1,6 @@
 import { AuthorizationService } from '@/data/services/authorization';
 import { GetPostService } from '@/data/services/get-post';
 import { InvalidAuthorizationError, InvalidPostError } from '@/domain/errors';
-import { CreatePost } from '@/domain/use-cases';
 import {
   badRequest,
   Controller,
@@ -13,6 +12,7 @@ import {
   ok,
 } from '@/presentation/contracts';
 import { BodyValidationError } from '@/presentation/errors';
+import { PostViewModel } from '@/presentation/view-models';
 
 export class GetPostController implements Controller {
   constructor(
@@ -22,18 +22,16 @@ export class GetPostController implements Controller {
 
   async handle(
     httpRequest: HttpRequest
-  ): Promise<HttpResponse<CreatePost.Result | HttpResponseError>> {
+  ): Promise<HttpResponse<PostViewModel | HttpResponseError>> {
     try {
       const { authorization } = httpRequest.headers;
       await this.authorizationService.authorize(authorization);
 
       const { id: postId } = httpRequest.params;
 
-      const post = await this.getPostService.get({
-        postId,
-      });
+      const post = await this.getPostService.get({ postId });
 
-      return ok(post);
+      return ok(PostViewModel.parse(post));
     } catch (error) {
       switch (error.constructor) {
         case InvalidAuthorizationError:

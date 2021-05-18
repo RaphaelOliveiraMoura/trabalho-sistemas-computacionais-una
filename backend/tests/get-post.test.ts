@@ -44,6 +44,11 @@ describe('GetPost', () => {
     expect(response.body.description).toBe(createdPost.description);
     expect(response.body.image).toBe(createdPost.image);
     expect(response.body.body).toBe(createdPost.body);
+    expect(Array.isArray(response.body.comments)).toBeTruthy();
+    expect(response.body.author).not.toHaveProperty('password');
+    expect(response.body.author).not.toHaveProperty('confirmPassword');
+    expect(response.body.author).not.toHaveProperty('id');
+    expect(response.body.author).not.toHaveProperty('token');
   });
 
   test('should return 400 when try get a post with invalid id', async () => {
