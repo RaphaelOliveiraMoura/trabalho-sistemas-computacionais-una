@@ -2,14 +2,22 @@ import supertest from 'supertest';
 
 import { signIn } from './utils/auth';
 
-import app from '@/main/app';
+import { setupApplication } from '@/main/app';
 import { PostBuilder } from '@/tests/builders';
 import { PostRepository, UserRepository } from '@/tests/repositories';
 
-const postRepository = new PostRepository();
-const userRepository = new UserRepository();
+let app = null;
+let postRepository = null;
+let userRepository = null;
 
 describe('RatePost', () => {
+  beforeAll(async () => {
+    app = await setupApplication();
+
+    postRepository = new PostRepository();
+    userRepository = new UserRepository();
+  });
+
   beforeEach(async () => {
     await postRepository.deleteAll();
     await userRepository.deleteAll();

@@ -1,13 +1,13 @@
 import { buildAuthorizationService } from '../services/authorization';
 
 import { CreatePostService } from '@/data/services';
-import { LocalMemoryPostRepository } from '@/infra/repositories';
+import { PostRepository } from '@/infra/repositories';
 import { CreatePostController } from '@/presentation/controllers';
 import { ValidatorComposite } from '@/validation/composite';
 import { RequiredValidator } from '@/validation/validators';
 
 export function buildCreatePostController() {
-  const postRepository = new LocalMemoryPostRepository();
+  const postRepository = new PostRepository();
   const createPostService = new CreatePostService(postRepository);
 
   const bodyValidator = new ValidatorComposite([

@@ -5,15 +5,15 @@ import { BcryptEncrypter } from '@/infra/utils';
 import { UserBuilder } from '@/tests/builders';
 import { UserRepository } from '@/tests/repositories';
 
-const userRepository = new UserRepository();
-const encrypter = new BcryptEncrypter();
-
 type signInResult = {
   authorization: string;
   user: User;
 };
 
 export async function signIn(app: any): Promise<signInResult> {
+  const userRepository = new UserRepository();
+  const encrypter = new BcryptEncrypter();
+
   const user = new UserBuilder().build();
 
   const encryptedPassword = await encrypter.encrypt(user.password);

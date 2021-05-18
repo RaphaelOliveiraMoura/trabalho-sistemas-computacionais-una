@@ -5,11 +5,11 @@ export class UserViewModel {
   name: string;
   createdAt: string;
 
-  static parse(user: User): UserViewModel {
+  static parse(user: Partial<User>): UserViewModel {
     return {
       email: user.email,
       name: user.name,
-      createdAt: user.createdAt.toISOString(),
+      createdAt: user.createdAt ? user.createdAt.toISOString() : null,
     };
   }
 }

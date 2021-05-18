@@ -1,9 +1,15 @@
-import { LocalMemoryPostEntity, LocalMemoryUserEntity } from './entities';
-import { users } from './user';
+import { UserRepository } from '..';
+
+import { LocalMemoryPostEntity } from './entities';
 
 import { PostRepository } from '@/data/contracts';
 import { Post, PostComment } from '@/domain/models';
-import { CommentPost, CreatePost, RatePost } from '@/domain/use-cases';
+import {
+  CommentPost,
+  CreatePost,
+  ListPosts,
+  RatePost,
+} from '@/domain/use-cases';
 
 const posts: Array<LocalMemoryPostEntity> = [];
 
@@ -20,12 +26,28 @@ export class LocalMemoryPostRepository implements PostRepository {
     return post;
   }
 
-  async findAll(): Promise<Post[]> {
-    return posts;
+  async findAll(): Promise<ListPosts.Result> {
+    return posts.map((post) => ({
+      id: post.id,
+      title: post.title,
+      description: post.description,
+      body: post.body,
+      image: post.image,
+      createdAt: post.createdAt,
+      author: {
+        id: post.author.id,
+        email: post.author.email,
+        name: post.author.name,
+      },
+      rating: post.rating.map(({ author, value }) => ({
+        authorId: author.id,
+        rating: value,
+      })),
+    }));
   }
 
   async create(params: CreatePost.Params): Promise<Post> {
-    const author = users.find(({ id }) => id === params.authorId);
+    const author = await new UserRepository().findById(params.authorId);
 
     if (!author) throw new Error(`Invalid Author with id: ${params.authorId}`);
 
@@ -35,7 +57,7 @@ export class LocalMemoryPostRepository implements PostRepository {
       comments: [],
       rating: [],
       createdAt: new Date(),
-      author: LocalMemoryUserEntity.unparse(author),
+      author,
     };
 
     posts.push(post);
@@ -44,14 +66,14 @@ export class LocalMemoryPostRepository implements PostRepository {
   }
 
   async createComment(params: CommentPost.Params): Promise<PostComment> {
-    const author = users.find(({ id }) => params.authorId === id);
+    const author = await new UserRepository().findById(params.authorId);
 
     const postIndex = posts.findIndex(({ id }) => id === params.postId);
 
     const comment: PostComment = {
       id: Math.random().toString(),
       text: params.text,
-      author: LocalMemoryUserEntity.unparse(author),
+      author,
       createdAt: new Date(),
     };
 
@@ -63,11 +85,11 @@ export class LocalMemoryPostRepository implements PostRepository {
   async createRating(params: RatePost.Params): Promise<Post> {
     const postIndex = posts.findIndex(({ id }) => id === params.postId);
 
-    const author = users.find(({ id }) => id === params.userId);
+    const author = await new UserRepository().findById(params.userId);
 
     const rating = {
       value: params.rating,
-      author: LocalMemoryUserEntity.unparse(author),
+      author,
     };
 
     const ratingIndex = posts[postIndex].rating.findIndex(

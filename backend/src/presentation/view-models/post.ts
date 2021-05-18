@@ -1,6 +1,7 @@
 import { UserViewModel } from './user';
 
 import { Post } from '@/domain/models';
+import { ListPosts } from '@/domain/use-cases';
 
 export class PostViewModel {
   id: string;
@@ -19,7 +20,7 @@ export class PostViewModel {
     current: number | null;
   };
 
-  author: UserViewModel;
+  author: Partial<UserViewModel>;
 
   static parse(post: Post, currentUserId: string): PostViewModel {
     const ratingSum = post.rating.reduce((acc, curr) => acc + curr.value, 0);
@@ -49,11 +50,31 @@ export class PostViewModel {
     };
   }
 
-  static parseArray(posts: Post[], currentUserId: string): PostViewModel[] {
+  static parseArray(
+    posts: ListPosts.Result,
+    currentUserId: string
+  ): PostViewModel[] {
     return posts.map((post) => {
-      const parsedPost = PostViewModel.parse(post, currentUserId);
-      delete parsedPost.comments;
-      return parsedPost;
+      const ratingSum = post.rating.reduce((acc, curr) => acc + curr.rating, 0);
+      const ratingAvg = ratingSum / post.rating.length || 0;
+
+      const ratingCurrent = post.rating.find(
+        ({ authorId }) => authorId === currentUserId
+      );
+
+      return {
+        id: post.id,
+        title: post.title,
+        description: post.description,
+        body: post.body,
+        image: post.image,
+        createdAt: post.createdAt.toISOString(),
+        rating: {
+          total: ratingAvg,
+          current: ratingCurrent ? ratingCurrent.rating : null,
+        },
+        author: UserViewModel.parse(post.author),
+      };
     });
   }
 }

@@ -1,5 +1,5 @@
 import { SignInService } from '@/data/services';
-import { LocalMemoryUserRepository } from '@/infra/repositories';
+import { UserRepository } from '@/infra/repositories';
 import { BcryptEncrypter, JWTHasher } from '@/infra/utils';
 import { SignInController } from '@/presentation/controllers';
 import { ValidatorComposite } from '@/validation/composite';
@@ -10,7 +10,7 @@ import {
 } from '@/validation/validators';
 
 export function buildSignInController() {
-  const userRepository = new LocalMemoryUserRepository();
+  const userRepository = new UserRepository();
   const encrypter = new BcryptEncrypter();
   const hasher = new JWTHasher();
 
