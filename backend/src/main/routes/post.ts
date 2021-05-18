@@ -4,12 +4,15 @@ import { ExpressRouteAdapter } from '@/main/adapters';
 import {
   buildCommentPostController,
   buildCreatePostController,
+  buildGetPostController,
   buildListPostsController,
   buildRatePostController,
 } from '@/main/factories';
 
 export default function setup(router: Router) {
   router.get('/posts', ExpressRouteAdapter.adapt(buildListPostsController()));
+
+  router.get('/posts/:id', ExpressRouteAdapter.adapt(buildGetPostController()));
 
   router.post('/posts', ExpressRouteAdapter.adapt(buildCreatePostController()));
 

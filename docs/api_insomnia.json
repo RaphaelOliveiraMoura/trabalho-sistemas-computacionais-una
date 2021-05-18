@@ -1,0 +1,306 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2021-05-18T01:15:22.580Z",
+  "__export_source": "insomnia.desktop.app:v2020.4.2",
+  "resources": [
+    {
+      "_id": "req_c686e7620f684fa3a84a9085dc0e15da",
+      "parentId": "wrk_e9807af9bce448a9b1b19c548e94ff7f",
+      "modified": 1621300480593,
+      "created": 1621281613865,
+      "url": "{{ base_url }}/posts/1/rate",
+      "name": "Avaliar Post",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"rating\": 1\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_d3792ed625c44bdba9d6a5a6b1165b50"
+        },
+        {
+          "name": "authorization",
+          "value": "Bearer {{ auth_token }}",
+          "description": "",
+          "id": "pair_f0f927fd5d4b4b7692caab99494f5f7b"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1621281613865,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "wrk_e9807af9bce448a9b1b19c548e94ff7f",
+      "parentId": null,
+      "modified": 1621280054873,
+      "created": 1621280054873,
+      "name": "UNATechBlog",
+      "description": "",
+      "scope": null,
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_83de2a68fa4f4e53b66785733def5523",
+      "parentId": "wrk_e9807af9bce448a9b1b19c548e94ff7f",
+      "modified": 1621281574782,
+      "created": 1621281534475,
+      "url": "{{ base_url }}/posts/1/comment",
+      "name": "Fazer Comentário",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"text\": \"Comentário maneiro\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_4769a53ace7948bb8506949bc479a2fd"
+        },
+        {
+          "name": "authorization",
+          "value": "Bearer {{ auth_token }}",
+          "description": "",
+          "id": "pair_d990aded01cb4a1a805a689f0dfea31c"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1621281534475,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_01a77304ef2243b18937cb72b5e83380",
+      "parentId": "wrk_e9807af9bce448a9b1b19c548e94ff7f",
+      "modified": 1621281288617,
+      "created": 1621281090358,
+      "url": "{{ base_url }}/posts",
+      "name": "Cadastrar Post",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"title\": \"Primeira postagem\",\n\t\"description\": \"Esta é minha primeira postagem no blog\",\n\t\"image\": \"https://image.shutterstock.com/image-photo/mountains-under-mist-morning-amazing-260nw-1725825019.jpg\",\n\t\"body\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eros sapien, fringilla quis velit semper, tempus scelerisque risus. Nulla dictum laoreet metus vel aliquet. Pellentesque efficitur ex at aliquam consequat. Donec id scelerisque tellus. Aliquam sem libero, laoreet id faucibus at, vestibulum sit amet velit. Nunc in rutrum ante. Cras mattis pellentesque tortor. Mauris nec ligula eu tortor ultrices egestas. Donec rutrum, justo nec hendrerit porta, nisi libero condimentum erat, sit amet fermentum ex libero at nibh. Vivamus eget posuere ipsum.\\n\\nPhasellus ullamcorper pulvinar odio ut eleifend. Sed ut scelerisque enim, quis luctus tortor. Morbi a elit vel elit pharetra varius pellentesque et ex. Sed tempus commodo elit, quis tincidunt ex viverra vitae. Donec in lorem nec tortor pharetra consectetur eu eu metus. Fusce facilisis est vel odio fermentum scelerisque. Sed accumsan tortor quis magna vehicula, a consequat dolor condimentum. Sed eleifend facilisis tristique. Aenean varius molestie risus quis viverra.\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_db2c854b0fdb46dd80e8f941bccc1b24"
+        },
+        {
+          "name": "authorization",
+          "value": "Bearer {{ auth_token }}",
+          "description": "",
+          "id": "pair_cdafd596560441c19aaf11753708b0b2"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1621281090358,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_c48a0402ab414378b5c052be12422bd4",
+      "parentId": "wrk_e9807af9bce448a9b1b19c548e94ff7f",
+      "modified": 1621294361154,
+      "created": 1621280840665,
+      "url": "{{ base_url }}/posts",
+      "name": "Listar Posts",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "authorization",
+          "value": "Bearer {{ auth_token }}",
+          "description": "",
+          "id": "pair_617f4718b25f497e9cab4178f960ce5c",
+          "disabled": false
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1621280840665,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_e559856639534dd9bab82e4a901bdfc8",
+      "parentId": "wrk_e9807af9bce448a9b1b19c548e94ff7f",
+      "modified": 1621298120334,
+      "created": 1621298116815,
+      "url": "{{ base_url }}/posts/1",
+      "name": "Detalhes Post",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "authorization",
+          "value": "Bearer {{ auth_token }}",
+          "description": "",
+          "id": "pair_617f4718b25f497e9cab4178f960ce5c",
+          "disabled": false
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1621280798210,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_13c8c3ab9693477da98d53cc8bd0b6ab",
+      "parentId": "wrk_e9807af9bce448a9b1b19c548e94ff7f",
+      "modified": 1621281096517,
+      "created": 1621280755755,
+      "url": "{{ base_url }}/signup",
+      "name": "Cadastrar Usuário",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"email\": \"raphael@gmail.com\",\n\t\"name\": \"Raphael Oliveira\",\n\t\"password\": \"raphael123456\",\n\t\"confirmPassword\": \"raphael123456\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_42045365c5e748b98fb3535dff70087b"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1621280755755,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_8b1e777d43974d2494657911b4f0df9c",
+      "parentId": "wrk_e9807af9bce448a9b1b19c548e94ff7f",
+      "modified": 1621280832535,
+      "created": 1621280117344,
+      "url": "{{ base_url }}/signin",
+      "name": "Login",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"email\": \"raphael@gmail.com\",\n\t\"password\": \"raphael123456\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_9c8bc05ceaf8411ebb09648d319c7738"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1621280117344,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_b861eff7090e47e714cd33431bca758494654879",
+      "parentId": "wrk_e9807af9bce448a9b1b19c548e94ff7f",
+      "modified": 1621280055210,
+      "created": 1621280055210,
+      "name": "Base Environment",
+      "data": {},
+      "dataPropertyOrder": null,
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1621280055210,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_b861eff7090e47e714cd33431bca758494654879",
+      "parentId": "wrk_e9807af9bce448a9b1b19c548e94ff7f",
+      "modified": 1621280055219,
+      "created": 1621280055219,
+      "name": "Default Jar",
+      "cookies": [],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_485d9f0314674a28a1ed365eb25782d8",
+      "parentId": "wrk_e9807af9bce448a9b1b19c548e94ff7f",
+      "modified": 1621280054881,
+      "created": 1621280054881,
+      "fileName": "UNATechBlog",
+      "contents": "",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    },
+    {
+      "_id": "env_53c50eacf25b47959ae9c5eaa9a937c5",
+      "parentId": "env_b861eff7090e47e714cd33431bca758494654879",
+      "modified": 1621281169893,
+      "created": 1621280061143,
+      "name": "Localhost",
+      "data": {
+        "base_url": "http://localhost:3333",
+        "auth_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAiLCJpYXQiOjE2MjEyODEwNTUsImV4cCI6MTYyNjQ2NTA1NX0.urK_cvBzY_o8rRQ7vmm55zCUCuaeEhGNV63WZBJbO_o"
+      },
+      "dataPropertyOrder": { "&": ["base_url", "auth_token"] },
+      "color": "#3b2499",
+      "isPrivate": false,
+      "metaSortKey": 1621280061143,
+      "_type": "environment"
+    }
+  ]
+}

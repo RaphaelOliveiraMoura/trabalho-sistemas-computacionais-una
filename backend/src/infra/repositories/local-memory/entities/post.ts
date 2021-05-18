@@ -1,7 +1,3 @@
-import { Post, PostRating } from '@/domain/models';
+import { Post } from '@/domain/models';
 
-type Rating = PostRating & { authorId: string };
-
-export type LocalMemoryPostEntity = Omit<Post, 'rating'> & {
-  rating: Rating[];
-};
+export type LocalMemoryPostEntity = Post;

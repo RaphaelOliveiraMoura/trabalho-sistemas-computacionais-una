@@ -36,7 +36,11 @@ describe('CreatePost', () => {
     expect(response.body).toHaveProperty('id');
     expect(response.body).toHaveProperty('createdAt');
     expect(response.body).toMatchObject(post);
-    expect(response.body.author.id).toBe(user.id);
+    expect(response.body.author.email).toBe(user.email);
+    expect(response.body.author).not.toHaveProperty('id');
+    expect(response.body.author).not.toHaveProperty('password');
+    expect(response.body.author).not.toHaveProperty('confirmPassword');
+    expect(response.body.author).not.toHaveProperty('token');
 
     const insertedPost = await postRepository.findById(response.body.id);
 

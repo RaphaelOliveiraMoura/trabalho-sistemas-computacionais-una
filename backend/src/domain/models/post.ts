@@ -8,7 +8,7 @@ export interface Post {
   description: string;
   body: string;
   image: string;
-  rating: PostRating;
+  rating: PostRating[];
   comments: PostComment[];
   author: User;
   createdAt: Date;

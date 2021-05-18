@@ -39,7 +39,11 @@ describe('RatePost', () => {
       .send({ rating: 4 });
 
     expect(response.status).toBe(200);
-    expect(response.body.rating.value).toBe(4);
+    expect(response.body.rating.total).toBe(4);
+    expect(response.body.author).not.toHaveProperty('id');
+    expect(response.body.author).not.toHaveProperty('password');
+    expect(response.body.author).not.toHaveProperty('confirmPassword');
+    expect(response.body.author).not.toHaveProperty('token');
   });
 
   test('should override post rate from same user', async () => {
@@ -64,7 +68,7 @@ describe('RatePost', () => {
       .send({ rating: 5 });
 
     expect(response.status).toBe(200);
-    expect(response.body.rating.value).toBe(5);
+    expect(response.body.rating.total).toBe(5);
   });
 
   test('should calculate avg to post rating', async () => {
@@ -96,6 +100,6 @@ describe('RatePost', () => {
       .send({ rating: 5 });
 
     expect(response.status).toBe(200);
-    expect(response.body.rating.value).toBe(3);
+    expect(response.body.rating.total).toBe(3);
   });
 });

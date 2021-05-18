@@ -2,19 +2,12 @@ import { LocalMemoryPostEntity, LocalMemoryUserEntity } from './entities';
 import { users } from './user';
 
 import { PostRepository } from '@/data/contracts';
-import { Post, PostComment, PostRating } from '@/domain/models';
+import { Post, PostComment } from '@/domain/models';
 import { CommentPost, CreatePost, RatePost } from '@/domain/use-cases';
 
 const posts: Array<LocalMemoryPostEntity> = [];
 
 export class LocalMemoryPostRepository implements PostRepository {
-  private parse(post: LocalMemoryPostEntity): Post {
-    const ratingSum = post.rating.reduce((acc, curr) => acc + curr.value, 0);
-    const ratingAvg = ratingSum / post.rating.length || 0;
-
-    return { ...post, rating: { value: ratingAvg } as PostRating };
-  }
-
   async count(): Promise<number> {
     return posts.length;
   }
@@ -24,11 +17,11 @@ export class LocalMemoryPostRepository implements PostRepository {
 
     if (!post) return null;
 
-    return this.parse(post);
+    return post;
   }
 
   async findAll(): Promise<Post[]> {
-    return posts.map(this.parse);
+    return posts;
   }
 
   async create(params: CreatePost.Params): Promise<Post> {
@@ -47,7 +40,7 @@ export class LocalMemoryPostRepository implements PostRepository {
 
     posts.push(post);
 
-    return this.parse(post);
+    return post;
   }
 
   async createComment(params: CommentPost.Params): Promise<PostComment> {
@@ -70,17 +63,22 @@ export class LocalMemoryPostRepository implements PostRepository {
   async createRating(params: RatePost.Params): Promise<Post> {
     const postIndex = posts.findIndex(({ id }) => id === params.postId);
 
-    const rating = { value: params.rating, authorId: params.userId };
+    const author = users.find(({ id }) => id === params.userId);
+
+    const rating = {
+      value: params.rating,
+      author: LocalMemoryUserEntity.unparse(author),
+    };
 
     const ratingIndex = posts[postIndex].rating.findIndex(
-      ({ authorId }) => authorId === params.userId
+      ({ author: { id } }) => id === params.userId
     );
 
     if (ratingIndex >= 0) posts[postIndex].rating.splice(ratingIndex, 1);
 
     posts[postIndex].rating.push(rating);
 
-    return this.parse(posts[postIndex]);
+    return posts[postIndex];
   }
 
   async deleteAll(): Promise<boolean> {
