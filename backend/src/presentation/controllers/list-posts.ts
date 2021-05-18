@@ -23,11 +23,11 @@ export class ListPostsController implements Controller {
   ): Promise<HttpResponse<PostViewModel[] | HttpResponseError>> {
     try {
       const { authorization } = httpRequest.headers;
-      await this.authorizationService.authorize(authorization);
+      const user = await this.authorizationService.authorize(authorization);
 
       const posts = await this.listPostsService.list();
 
-      return ok(PostViewModel.parseArray(posts));
+      return ok(PostViewModel.parseArray(posts, user.id));
     } catch (error) {
       if (error instanceof InvalidAuthorizationError)
         return unauthorized(error);

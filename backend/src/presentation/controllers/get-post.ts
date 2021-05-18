@@ -25,13 +25,13 @@ export class GetPostController implements Controller {
   ): Promise<HttpResponse<PostViewModel | HttpResponseError>> {
     try {
       const { authorization } = httpRequest.headers;
-      await this.authorizationService.authorize(authorization);
+      const user = await this.authorizationService.authorize(authorization);
 
       const { id: postId } = httpRequest.params;
 
       const post = await this.getPostService.get({ postId });
 
-      return ok(PostViewModel.parse(post));
+      return ok(PostViewModel.parse(post, user.id));
     } catch (error) {
       switch (error.constructor) {
         case InvalidAuthorizationError:

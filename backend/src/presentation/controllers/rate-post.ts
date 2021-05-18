@@ -42,7 +42,7 @@ export class RatePostController implements Controller {
         rating,
       });
 
-      return ok(PostViewModel.parse(post));
+      return ok(PostViewModel.parse(post, user.id));
     } catch (error) {
       switch (error.constructor) {
         case InvalidAuthorizationError:

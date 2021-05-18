@@ -42,7 +42,7 @@ export class CreatePostController implements Controller {
         authorId: user.id,
       });
 
-      return created(PostViewModel.parse(post));
+      return created(PostViewModel.parse(post, user.id));
     } catch (error) {
       switch (error.constructor) {
         case InvalidAuthorizationError:

@@ -16,11 +16,19 @@ export class PostViewModel {
 
   rating: {
     total: number;
+    current: number | null;
   };
 
   author: UserViewModel;
 
-  static parse(post: Post): PostViewModel {
+  static parse(post: Post, currentUserId: string): PostViewModel {
+    const ratingSum = post.rating.reduce((acc, curr) => acc + curr.value, 0);
+    const ratingAvg = ratingSum / post.rating.length || 0;
+
+    const ratingCurrent = post.rating.find(
+      ({ author }) => author.id === currentUserId
+    );
+
     return {
       id: post.id,
       title: post.title,
@@ -34,15 +42,16 @@ export class PostViewModel {
         author: UserViewModel.parse(comment.author),
       })),
       rating: {
-        total: post.rating.value,
+        total: ratingAvg,
+        current: ratingCurrent ? ratingCurrent.value : null,
       },
       author: UserViewModel.parse(post.author),
     };
   }
 
-  static parseArray(posts: Post[]): PostViewModel[] {
+  static parseArray(posts: Post[], currentUserId: string): PostViewModel[] {
     return posts.map((post) => {
-      const parsedPost = PostViewModel.parse(post);
+      const parsedPost = PostViewModel.parse(post, currentUserId);
       delete parsedPost.comments;
       return parsedPost;
     });
