@@ -16,10 +16,6 @@ export function mapComment(dbComment): PostComment {
 export function mapRating(dbRating): PostRating {
   return {
     value: Number(dbRating.rating) as RatingValues,
-    author: {
-      id: dbRating.author_id,
-      email: dbRating.author_email,
-      name: dbRating.author_name,
-    },
+    authorId: dbRating.author_id,
   };
 }

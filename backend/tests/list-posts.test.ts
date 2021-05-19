@@ -55,7 +55,7 @@ describe('ListPosts', () => {
     expect(Array.isArray(response.body)).toBeTruthy();
     expect(response.body.length).toBe(postsToInsert);
     expect(Array.isArray(response.body[0].comments)).toBeFalsy();
-    expect(response.body[0].author).not.toHaveProperty('id');
+    expect(response.body[0].author).toHaveProperty('id');
     expect(response.body[0].author).not.toHaveProperty('password');
     expect(response.body[0].author).not.toHaveProperty('confirmPassword');
     expect(response.body[0].author).not.toHaveProperty('token');

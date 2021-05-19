@@ -45,7 +45,7 @@ describe('CreatePost', () => {
     expect(response.body).toHaveProperty('createdAt');
     expect(response.body).toMatchObject(post);
     expect(response.body.author.email).toBe(user.email);
-    expect(response.body.author).not.toHaveProperty('id');
+    expect(response.body.author).toHaveProperty('id');
     expect(response.body.author).not.toHaveProperty('password');
     expect(response.body.author).not.toHaveProperty('confirmPassword');
     expect(response.body.author).not.toHaveProperty('token');

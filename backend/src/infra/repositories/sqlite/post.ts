@@ -35,7 +35,7 @@ export class SQLitePostRepository implements PostRepository {
     );
 
     const rating = await this.db.all(
-      'SELECT pr.rating, u.rowid as author_id, u.email as author_email, u.name as author_name FROM post_ratings as pr LEFT JOIN users as u ON u.rowid = pr.author_id WHERE pr.post_id = ?',
+      'SELECT pr.rating, pr.author_id as author_id FROM post_ratings as pr WHERE pr.post_id = ?',
       postId
     );
 
@@ -77,14 +77,14 @@ export class SQLitePostRepository implements PostRepository {
       `
     );
 
-    const posts = [];
+    const posts: Post[] = [];
 
     results.forEach((row) => {
-      const postIndex = posts.find(({ id }) => String(row.id) === id);
+      const postIndex = posts.findIndex(({ id }) => String(row.id) === id);
 
       if (postIndex >= 0) {
         posts[postIndex].rating.push({
-          rating: row.rating,
+          value: row.rating,
           authorId: row.rating_author_id,
         });
       } else {
@@ -101,7 +101,7 @@ export class SQLitePostRepository implements PostRepository {
             email: row.author_email,
           },
           rating: row.rating
-            ? [{ rating: row.rating, authorId: row.rating_author_id }]
+            ? [{ value: row.rating, authorId: row.rating_author_id }]
             : [],
         });
       }

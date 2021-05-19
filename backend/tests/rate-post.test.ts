@@ -48,7 +48,7 @@ describe('RatePost', () => {
 
     expect(response.status).toBe(200);
     expect(response.body.rating.total).toBe(4);
-    expect(response.body.author).not.toHaveProperty('id');
+    expect(response.body.author).toHaveProperty('id');
     expect(response.body.author).not.toHaveProperty('password');
     expect(response.body.author).not.toHaveProperty('confirmPassword');
     expect(response.body.author).not.toHaveProperty('token');

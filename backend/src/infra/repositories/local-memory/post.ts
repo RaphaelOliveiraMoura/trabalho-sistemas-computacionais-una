@@ -62,15 +62,13 @@ export class LocalMemoryPostRepository implements PostRepository {
   async createRating(params: RatePost.Params): Promise<Post> {
     const postIndex = posts.findIndex(({ id }) => id === params.postId);
 
-    const author = await new UserRepository().findById(params.userId);
-
     const rating = {
       value: params.rating,
-      author,
+      authorId: params.userId,
     };
 
     const ratingIndex = posts[postIndex].rating.findIndex(
-      ({ author: { id } }) => id === params.userId
+      ({ authorId }) => authorId === params.userId
     );
 
     if (ratingIndex >= 0) posts[postIndex].rating.splice(ratingIndex, 1);
