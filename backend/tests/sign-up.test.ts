@@ -118,16 +118,15 @@ describe('SignUp', () => {
 
     const invalidUser = {
       ...user,
-      password: 'invalid_password',
-      confirmPassword: 'invalid_password',
+      password: 'invalid',
+      confirmPassword: 'invalid',
     };
 
     const response = await supertest(app).post('/signup').send(invalidUser);
 
     expect(response.status).toBe(400);
     expect(response.body).toEqual({
-      error:
-        'password need have minimum eight characters and at least one letter and one number',
+      error: 'password must have at least 8 characters',
     });
 
     const usersCount = await userRepository.count();

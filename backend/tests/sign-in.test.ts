@@ -111,12 +111,11 @@ describe('SignIn', () => {
 
     const response = await supertest(app)
       .post('/signin')
-      .send({ email: user.email, password: 'invalid_password' });
+      .send({ email: user.email, password: 'invalid' });
 
     expect(response.status).toBe(400);
     expect(response.body).toEqual({
-      error:
-        'password need have minimum eight characters and at least one letter and one number',
+      error: 'password must have at least 8 characters',
     });
   });
 });
