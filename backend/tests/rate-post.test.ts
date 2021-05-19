@@ -2,14 +2,22 @@ import supertest from 'supertest';
 
 import { signIn } from './utils/auth';
 
-import app from '@/main/app';
+import { setupApplication } from '@/main/app';
 import { PostBuilder } from '@/tests/builders';
 import { PostRepository, UserRepository } from '@/tests/repositories';
 
-const postRepository = new PostRepository();
-const userRepository = new UserRepository();
+let app = null;
+let postRepository = null;
+let userRepository = null;
 
 describe('RatePost', () => {
+  beforeAll(async () => {
+    app = await setupApplication();
+
+    postRepository = new PostRepository();
+    userRepository = new UserRepository();
+  });
+
   beforeEach(async () => {
     await postRepository.deleteAll();
     await userRepository.deleteAll();
@@ -40,7 +48,7 @@ describe('RatePost', () => {
 
     expect(response.status).toBe(200);
     expect(response.body.rating.total).toBe(4);
-    expect(response.body.author).not.toHaveProperty('id');
+    expect(response.body.author).toHaveProperty('id');
     expect(response.body.author).not.toHaveProperty('password');
     expect(response.body.author).not.toHaveProperty('confirmPassword');
     expect(response.body.author).not.toHaveProperty('token');

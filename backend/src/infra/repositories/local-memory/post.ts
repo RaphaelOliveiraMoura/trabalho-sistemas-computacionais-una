@@ -1,11 +1,10 @@
-import { LocalMemoryPostEntity, LocalMemoryUserEntity } from './entities';
-import { users } from './user';
+import { UserRepository } from '..';
 
 import { PostRepository } from '@/data/contracts';
 import { Post, PostComment } from '@/domain/models';
 import { CommentPost, CreatePost, RatePost } from '@/domain/use-cases';
 
-const posts: Array<LocalMemoryPostEntity> = [];
+const posts: Array<Post> = [];
 
 export class LocalMemoryPostRepository implements PostRepository {
   async count(): Promise<number> {
@@ -21,21 +20,21 @@ export class LocalMemoryPostRepository implements PostRepository {
   }
 
   async findAll(): Promise<Post[]> {
-    return posts;
+    return posts.map(({ comments: _, ...post }) => post);
   }
 
   async create(params: CreatePost.Params): Promise<Post> {
-    const author = users.find(({ id }) => id === params.authorId);
+    const author = await new UserRepository().findById(params.authorId);
 
     if (!author) throw new Error(`Invalid Author with id: ${params.authorId}`);
 
-    const post: LocalMemoryPostEntity = {
+    const post = {
       ...params,
       id: String(posts.length + 1),
+      author,
       comments: [],
       rating: [],
       createdAt: new Date(),
-      author: LocalMemoryUserEntity.unparse(author),
     };
 
     posts.push(post);
@@ -44,14 +43,14 @@ export class LocalMemoryPostRepository implements PostRepository {
   }
 
   async createComment(params: CommentPost.Params): Promise<PostComment> {
-    const author = users.find(({ id }) => params.authorId === id);
+    const author = await new UserRepository().findById(params.authorId);
 
     const postIndex = posts.findIndex(({ id }) => id === params.postId);
 
     const comment: PostComment = {
       id: Math.random().toString(),
       text: params.text,
-      author: LocalMemoryUserEntity.unparse(author),
+      author,
       createdAt: new Date(),
     };
 
@@ -63,15 +62,13 @@ export class LocalMemoryPostRepository implements PostRepository {
   async createRating(params: RatePost.Params): Promise<Post> {
     const postIndex = posts.findIndex(({ id }) => id === params.postId);
 
-    const author = users.find(({ id }) => id === params.userId);
-
     const rating = {
       value: params.rating,
-      author: LocalMemoryUserEntity.unparse(author),
+      authorId: params.userId,
     };
 
     const ratingIndex = posts[postIndex].rating.findIndex(
-      ({ author: { id } }) => id === params.userId
+      ({ authorId }) => authorId === params.userId
     );
 
     if (ratingIndex >= 0) posts[postIndex].rating.splice(ratingIndex, 1);

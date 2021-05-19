@@ -1,14 +1,22 @@
 import supertest from 'supertest';
 
 import { BcryptEncrypter } from '@/infra/utils';
-import app from '@/main/app';
+import { setupApplication } from '@/main/app';
 import { UserBuilder } from '@/tests/builders';
 import { UserRepository } from '@/tests/repositories';
 
-const userRepository = new UserRepository();
 const encrypter = new BcryptEncrypter();
 
+let app = null;
+let userRepository = null;
+
 describe('SignIn', () => {
+  beforeAll(async () => {
+    app = await setupApplication();
+
+    userRepository = new UserRepository();
+  });
+
   beforeEach(async () => {
     await userRepository.deleteAll();
 

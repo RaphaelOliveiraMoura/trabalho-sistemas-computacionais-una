@@ -1,5 +1,5 @@
 import { CreateUserService } from '@/data/services';
-import { LocalMemoryUserRepository } from '@/infra/repositories';
+import { UserRepository } from '@/infra/repositories';
 import { BcryptEncrypter } from '@/infra/utils';
 import { SignUpController } from '@/presentation/controllers';
 import { ValidatorComposite } from '@/validation/composite';
@@ -11,10 +11,10 @@ import {
 } from '@/validation/validators';
 
 export function buildSingUpController() {
-  const localMemoryUserRepository = new LocalMemoryUserRepository();
+  const userRepository = new UserRepository();
   const bcryptEncrypter = new BcryptEncrypter();
   const createUserService = new CreateUserService(
-    localMemoryUserRepository,
+    userRepository,
     bcryptEncrypter
   );
   const bodyValidator = new ValidatorComposite([

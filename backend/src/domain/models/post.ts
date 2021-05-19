@@ -1,6 +1,5 @@
 import { PostComment } from './comment';
 import { PostRating } from './rating';
-import { User } from './user';
 
 export interface Post {
   id: string;
@@ -9,7 +8,11 @@ export interface Post {
   body: string;
   image: string;
   rating: PostRating[];
-  comments: PostComment[];
-  author: User;
+  comments?: PostComment[];
+  author: {
+    id: string;
+    email: string;
+    name: string;
+  };
   createdAt: Date;
 }

@@ -1,2 +1,2 @@
-export { LocalMemoryUserRepository as UserRepository } from '@/infra/repositories';
-export { LocalMemoryPostRepository as PostRepository } from '@/infra/repositories';
+export { UserRepository } from '@/infra/repositories';
+export { PostRepository } from '@/infra/repositories';

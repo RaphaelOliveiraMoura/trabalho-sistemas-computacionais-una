@@ -1,6 +1,5 @@
-import { UserViewModel } from './user';
-
 import { Post } from '@/domain/models';
+import { ListPosts } from '@/domain/use-cases';
 
 export class PostViewModel {
   id: string;
@@ -19,41 +18,56 @@ export class PostViewModel {
     current: number | null;
   };
 
-  author: UserViewModel;
+  author: {
+    id: string;
+    email: string;
+    name: string;
+  };
 
   static parse(post: Post, currentUserId: string): PostViewModel {
     const ratingSum = post.rating.reduce((acc, curr) => acc + curr.value, 0);
     const ratingAvg = ratingSum / post.rating.length || 0;
 
     const ratingCurrent = post.rating.find(
-      ({ author }) => author.id === currentUserId
+      ({ authorId }) => authorId === currentUserId
     );
 
-    return {
-      id: post.id,
-      title: post.title,
-      description: post.description,
-      body: post.body,
-      image: post.image,
-      createdAt: post.createdAt.toISOString(),
-      comments: post.comments.map((comment) => ({
-        id: comment.id,
-        text: comment.text,
-        author: UserViewModel.parse(comment.author),
-      })),
-      rating: {
-        total: ratingAvg,
-        current: ratingCurrent ? ratingCurrent.value : null,
-      },
-      author: UserViewModel.parse(post.author),
-    };
+    return JSON.parse(
+      JSON.stringify({
+        id: String(post.id),
+        title: post.title,
+        description: post.description,
+        body: post.body,
+        image: post.image,
+        createdAt: post.createdAt.toISOString(),
+        comments: post.comments
+          ? post.comments.map((comment) => ({
+              id: String(comment.id),
+              text: comment.text,
+              author: {
+                id: String(comment.author.id),
+                name: comment.author.name,
+                email: comment.author.email,
+              },
+            }))
+          : undefined,
+        rating: {
+          total: Number(ratingAvg),
+          current: ratingCurrent ? Number(ratingCurrent.value) : null,
+        },
+        author: {
+          id: String(post.author.id),
+          name: post.author.name,
+          email: post.author.email,
+        },
+      })
+    );
   }
 
-  static parseArray(posts: Post[], currentUserId: string): PostViewModel[] {
-    return posts.map((post) => {
-      const parsedPost = PostViewModel.parse(post, currentUserId);
-      delete parsedPost.comments;
-      return parsedPost;
-    });
+  static parseArray(
+    posts: ListPosts.Result,
+    currentUserId: string
+  ): PostViewModel[] {
+    return posts.map((post) => this.parse(post, currentUserId));
   }
 }

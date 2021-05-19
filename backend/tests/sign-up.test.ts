@@ -1,13 +1,20 @@
 import supertest from 'supertest';
 
-import app from '@/main/app';
+import { setupApplication } from '@/main/app';
 import { UserBuilder } from '@/tests/builders';
 import { UserRepository } from '@/tests/repositories';
 import { omit } from '@/utils';
 
-const userRepository = new UserRepository();
+let app = null;
+let userRepository = null;
 
 describe('SignUp', () => {
+  beforeAll(async () => {
+    app = await setupApplication();
+
+    userRepository = new UserRepository();
+  });
+
   beforeEach(async () => {
     await userRepository.deleteAll();
   });

@@ -1,13 +1,13 @@
 import { buildAuthorizationService } from '../services/authorization';
 
 import { CommentPostService } from '@/data/services';
-import { LocalMemoryPostRepository } from '@/infra/repositories';
+import { PostRepository } from '@/infra/repositories';
 import { CommentPostController } from '@/presentation/controllers';
 import { ValidatorComposite } from '@/validation/composite';
 import { RequiredValidator } from '@/validation/validators';
 
 export function buildCommentPostController() {
-  const postRepository = new LocalMemoryPostRepository();
+  const postRepository = new PostRepository();
 
   const commentPostService = new CommentPostService(postRepository);
 

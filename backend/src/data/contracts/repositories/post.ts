@@ -6,7 +6,7 @@ export interface PostRepository {
 
   findById: (postId: string) => Promise<Post | null>;
 
-  findAll: () => Promise<Post[] | null>;
+  findAll: () => Promise<Post[]>;
 
   create: (params: CreatePost.Params) => Promise<Post>;
 

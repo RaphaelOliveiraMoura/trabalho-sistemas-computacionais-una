@@ -19,6 +19,7 @@ type CommentPostControllerResponse = {
   id: string;
   text: string;
   author: {
+    id: string;
     email: string;
     name: string;
   };
@@ -54,6 +55,7 @@ export class CommentPostController implements Controller {
         id: comment.id,
         text: comment.text,
         author: {
+          id: comment.author.id,
           email: comment.author.email,
           name: comment.author.name,
         },
