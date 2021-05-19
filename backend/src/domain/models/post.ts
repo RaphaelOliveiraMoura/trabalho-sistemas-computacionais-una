@@ -8,7 +8,7 @@ export interface Post {
   body: string;
   image: string;
   rating: PostRating[];
-  comments: PostComment[];
+  comments?: PostComment[];
   author: {
     id: string;
     email: string;

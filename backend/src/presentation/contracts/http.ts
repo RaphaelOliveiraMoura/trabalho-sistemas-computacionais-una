@@ -35,11 +35,7 @@ export const unauthorized = (
   body: { error: error.message },
 });
 
-export const serverError = (error: Error): HttpResponse<HttpResponseError> => {
-  console.log(error);
-
-  return {
-    statusCode: 500,
-    body: { error: error.message },
-  };
-};
+export const serverError = (error: Error): HttpResponse<HttpResponseError> => ({
+  statusCode: 500,
+  body: { error: error.message },
+});

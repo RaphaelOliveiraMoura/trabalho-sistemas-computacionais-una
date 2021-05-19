@@ -3,7 +3,7 @@ import { User } from '@/domain/models';
 export class UserViewModel {
   email: string;
   name: string;
-  createdAt: string;
+  createdAt?: string;
 
   static parse(user: Partial<User>): UserViewModel {
     return {

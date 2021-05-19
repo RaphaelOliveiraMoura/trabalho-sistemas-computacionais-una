@@ -1,17 +1,12 @@
 import { Post, PostComment } from '@/domain/models';
-import {
-  CommentPost,
-  CreatePost,
-  RatePost,
-  ListPosts,
-} from '@/domain/use-cases';
+import { CommentPost, CreatePost, RatePost } from '@/domain/use-cases';
 
 export interface PostRepository {
   count: () => Promise<number>;
 
   findById: (postId: string) => Promise<Post | null>;
 
-  findAll: () => Promise<ListPosts.Result>;
+  findAll: () => Promise<Post[]>;
 
   create: (params: CreatePost.Params) => Promise<Post>;
 

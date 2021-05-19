@@ -1,17 +1,10 @@
 import { UserRepository } from '..';
 
-import { LocalMemoryPostEntity } from './entities';
-
 import { PostRepository } from '@/data/contracts';
 import { Post, PostComment } from '@/domain/models';
-import {
-  CommentPost,
-  CreatePost,
-  ListPosts,
-  RatePost,
-} from '@/domain/use-cases';
+import { CommentPost, CreatePost, RatePost } from '@/domain/use-cases';
 
-const posts: Array<LocalMemoryPostEntity> = [];
+const posts: Array<Post> = [];
 
 export class LocalMemoryPostRepository implements PostRepository {
   async count(): Promise<number> {
@@ -26,24 +19,8 @@ export class LocalMemoryPostRepository implements PostRepository {
     return post;
   }
 
-  async findAll(): Promise<ListPosts.Result> {
-    return posts.map((post) => ({
-      id: post.id,
-      title: post.title,
-      description: post.description,
-      body: post.body,
-      image: post.image,
-      createdAt: post.createdAt,
-      author: {
-        id: post.author.id,
-        email: post.author.email,
-        name: post.author.name,
-      },
-      rating: post.rating.map(({ author, value }) => ({
-        authorId: author.id,
-        rating: value,
-      })),
-    }));
+  async findAll(): Promise<Post[]> {
+    return posts.map(({ comments: _, ...post }) => post);
   }
 
   async create(params: CreatePost.Params): Promise<Post> {
@@ -51,13 +28,13 @@ export class LocalMemoryPostRepository implements PostRepository {
 
     if (!author) throw new Error(`Invalid Author with id: ${params.authorId}`);
 
-    const post: LocalMemoryPostEntity = {
+    const post = {
       ...params,
       id: String(posts.length + 1),
+      author,
       comments: [],
       rating: [],
       createdAt: new Date(),
-      author,
     };
 
     posts.push(post);

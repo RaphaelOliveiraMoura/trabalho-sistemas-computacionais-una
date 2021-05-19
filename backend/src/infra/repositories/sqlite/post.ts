@@ -2,15 +2,12 @@ import { Database } from 'sqlite';
 
 import { UserRepository } from '..';
 
+import { mapComment, mapRating } from './utils/mappers';
+
 import { SQLiteDatabase } from '.';
 import { PostRepository } from '@/data/contracts';
 import { Post, PostComment } from '@/domain/models';
-import {
-  CommentPost,
-  CreatePost,
-  ListPosts,
-  RatePost,
-} from '@/domain/use-cases';
+import { CommentPost, CreatePost, RatePost } from '@/domain/use-cases';
 
 export class SQLitePostRepository implements PostRepository {
   db: Database;
@@ -50,30 +47,14 @@ export class SQLitePostRepository implements PostRepository {
       description: result.description,
       body: result.body,
       image: result.image,
-      comments: comments.map((row) => ({
-        id: row.id,
-        text: row.text,
-        author: {
-          id: row.author_id,
-          email: row.author_email,
-          name: row.author_name,
-        },
-        createdAt: row.created_at,
-      })),
-      rating: rating.map((row) => ({
-        value: Number(row.rating),
-        author: {
-          id: row.author_id,
-          email: row.author_email,
-          name: row.author_name,
-        },
-      })),
+      comments: comments.map(mapComment),
+      rating: rating.map(mapRating),
       author,
       createdAt: new Date(result.created_at),
     } as Post;
   }
 
-  async findAll(): Promise<ListPosts.Result> {
+  async findAll(): Promise<Post[]> {
     const results = await this.db.all(
       `
       SELECT 
@@ -87,7 +68,6 @@ export class SQLitePostRepository implements PostRepository {
         u.rowid as author_id,
         u.name as author_name,
         u.email as author_email,
-        u.created_at as author_created_at,
         
         pr.rating as rating,
         pr.author_id as rating_author_id
@@ -119,7 +99,6 @@ export class SQLitePostRepository implements PostRepository {
             id: row.author_id,
             name: row.author_name,
             email: row.author_email,
-            createdAt: new Date(row.author_created_at),
           },
           rating: row.rating
             ? [{ rating: row.rating, authorId: row.rating_author_id }]
@@ -152,17 +131,7 @@ export class SQLitePostRepository implements PostRepository {
       new Date().toISOString()
     );
 
-    return {
-      id: String(result.lastID),
-      title,
-      description,
-      body,
-      image,
-      author,
-      comments: [],
-      rating: [],
-      createdAt: new Date(),
-    };
+    return this.findById(String(result.lastID));
   }
 
   async createComment({
@@ -174,19 +143,21 @@ export class SQLitePostRepository implements PostRepository {
 
     if (!author) throw new Error(`Invalid Author with id: ${authorId}`);
 
+    const createdAt = new Date();
+
     const result = await this.db.run(
       'INSERT INTO post_comments (author_id, post_id, text, created_at) VALUES (?, ?, ?, ?)',
       authorId,
       postId,
       text,
-      new Date().toISOString()
+      createdAt.toISOString()
     );
 
     return {
       id: String(result.lastID),
       author,
       text,
-      createdAt: new Date(),
+      createdAt,
     };
   }
 

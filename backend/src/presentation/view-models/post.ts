@@ -30,51 +30,34 @@ export class PostViewModel {
       ({ author }) => author.id === currentUserId
     );
 
-    return {
-      id: post.id,
-      title: post.title,
-      description: post.description,
-      body: post.body,
-      image: post.image,
-      createdAt: post.createdAt.toISOString(),
-      comments: post.comments.map((comment) => ({
-        id: comment.id,
-        text: comment.text,
-        author: UserViewModel.parse(comment.author),
-      })),
-      rating: {
-        total: ratingAvg,
-        current: ratingCurrent ? ratingCurrent.value : null,
-      },
-      author: UserViewModel.parse(post.author),
-    };
-  }
-
-  static parseArray(
-    posts: ListPosts.Result,
-    currentUserId: string
-  ): PostViewModel[] {
-    return posts.map((post) => {
-      const ratingSum = post.rating.reduce((acc, curr) => acc + curr.rating, 0);
-      const ratingAvg = ratingSum / post.rating.length || 0;
-
-      const ratingCurrent = post.rating.find(
-        ({ authorId }) => authorId === currentUserId
-      );
-
-      return {
+    return JSON.parse(
+      JSON.stringify({
         id: post.id,
         title: post.title,
         description: post.description,
         body: post.body,
         image: post.image,
         createdAt: post.createdAt.toISOString(),
+        comments: post.comments
+          ? post.comments.map((comment) => ({
+              id: comment.id,
+              text: comment.text,
+              author: UserViewModel.parse(comment.author),
+            }))
+          : undefined,
         rating: {
           total: ratingAvg,
-          current: ratingCurrent ? ratingCurrent.rating : null,
+          current: ratingCurrent ? ratingCurrent.value : null,
         },
         author: UserViewModel.parse(post.author),
-      };
-    });
+      })
+    );
+  }
+
+  static parseArray(
+    posts: ListPosts.Result,
+    currentUserId: string
+  ): PostViewModel[] {
+    return posts.map((post) => this.parse(post, currentUserId));
   }
 }
