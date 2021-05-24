@@ -10,5 +10,7 @@ export namespace SignIn {
 
   export type Result = {
     token: string;
+    email: string;
+    name: string;
   };
 }

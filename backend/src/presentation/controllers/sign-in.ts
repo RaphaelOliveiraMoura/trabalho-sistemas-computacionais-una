@@ -28,8 +28,13 @@ export class SignInController implements Controller {
       if (error) throw new BodyValidationError(error);
 
       const { email, password } = httpRequest.body;
-      const token = await this.signInService.signIn({ email, password });
-      return ok(token);
+
+      const { token, name } = await this.signInService.signIn({
+        email,
+        password,
+      });
+
+      return ok({ token, email, name });
     } catch (error) {
       switch (error.constructor) {
         case InvalidCredentialsError:

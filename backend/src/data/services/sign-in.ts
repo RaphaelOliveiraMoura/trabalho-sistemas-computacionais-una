@@ -23,6 +23,6 @@ export class SignInService implements SignIn {
 
     const token = await this.hasher.encode({ id: user.id });
 
-    return { token };
+    return { token, email: user.email, name: user.name };
   }
 }

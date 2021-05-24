@@ -38,6 +38,8 @@ describe('SignIn', () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('token');
+    expect(response.body).toHaveProperty('email');
+    expect(response.body).toHaveProperty('name');
   });
 
   test('should return 401 when try signin with non created user', async () => {
