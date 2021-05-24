@@ -28,7 +28,7 @@ export default function RegisterForm() {
             return alert("A senha digitada é diferente da confirmação de senha");
         };
 
-        const user = { email: email, name: name, password: password, confirmPassword: confirmPassword };
+        const user = { email: email.toLowerCase(), name: name, password: password, confirmPassword: confirmPassword };
 
         const baseUrl = "http://54.234.248.140:3333/signup";
         const req = await fetch(baseUrl, {
@@ -62,6 +62,8 @@ export default function RegisterForm() {
                 case "password is required":
                     alert("O campo Senha precisa ser preenchido");
                     break;
+                default:
+                    alert("Por favor, confira se todos os campos foram digitados corretamente")
             }
         };
 
@@ -72,25 +74,8 @@ export default function RegisterForm() {
     }
 
     function validateEmail(email) {
-        const emailUser = email.substring(0, email.indexOf("@"));
-        const emailDomain = email.substring(email.indexOf("@") + 1, email.length);
-
-        if (
-            (emailUser.length >= 1) &&
-            (emailDomain.length >= 3) &&
-            (emailUser.search("@") === -1) &&
-            (emailDomain.search("@") === -1) &&
-            (emailUser.search(" ") === -1) &&
-            (emailDomain.search(" ") === -1) &&
-            (emailDomain.search(".") !== -1) &&
-            (emailDomain.indexOf(".") >= 1) &&
-            (emailDomain.lastIndexOf(".") < emailDomain.length - 1)
-        ) {
-            return true;
-        }
-        else {
-            return false;
-        };
+        const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return EMAIL_REGEX.test(email)
     }
 
     function setValues(e) {
@@ -109,6 +94,7 @@ export default function RegisterForm() {
             case "confirmPassword":
                 setconfirmPassword(target.value);
                 break;
+            default:
         };
     }
 
