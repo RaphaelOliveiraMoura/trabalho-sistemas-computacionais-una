@@ -3,6 +3,7 @@ import Footer from './footer';
 import Header from './header';
 import { Link, Redirect } from 'react-router-dom';
 import Content from './content';
+import isLogged from '../utils/isLogged';
 
 export default function LoginForm() {
     const [email, setemail] = useState("");
@@ -27,7 +28,7 @@ export default function LoginForm() {
 
         if (req.status === 200) {
             localStorage.setItem("tkn", `${responseJson.token}`);
-            setRedirect(true);
+            setRedirect(isLogged());
         };
     }
 

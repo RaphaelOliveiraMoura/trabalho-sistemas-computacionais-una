@@ -1,5 +1,6 @@
 import React from 'react';
 import Rating from '@material-ui/lab/Rating';
+import dataFormat from '../utils/dataFormat';
 
 export default function PostCardHeader({ post }) {
     const { title, createdAt, rating, author } = post;
@@ -8,7 +9,7 @@ export default function PostCardHeader({ post }) {
             <div>
                 <h1>{title}</h1>
                 <span>
-                    <strong>Autor:</strong> {author.name} - <strong>Postado em:</strong> {new Date(createdAt).getDate()}/{new Date(createdAt).getMonth() + 1}/{new Date(createdAt).getFullYear()}
+                    <strong>Autor:</strong> {author.name} - <strong>Postado em:</strong> {dataFormat(createdAt)}
                 </span>
             </div>
             <div className="rating">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import isLogged from '../utils/isLogged';
 import Container from './container';
 
 export default function CreatePost() {
@@ -7,9 +8,10 @@ export default function CreatePost() {
     const [description, setDescription] = useState("");
     const [articleBody, setArticleBody] = useState("");
     const [image, setImage] = useState("");
+    const [redirect, setRedirect] = useState(isLogged());
 
     async function sendArticle() {
-        if (!localStorage.getItem("tkn")) {
+        if (!!isLogged()) {
             alert("Você precisa estar logado para fazer uma postagem");
         }
 
@@ -24,9 +26,9 @@ export default function CreatePost() {
         };
 
         const article = {
-            title: title,
-            description: description,
-            image: image,
+            title,
+            description,
+            image,
             body: articleBody
         };
         const headers = {
@@ -48,6 +50,7 @@ export default function CreatePost() {
         }
 
         if (req.status === 201) {
+            setRedirect(isLogged());
             return alert("Postagem efetuada com sucesso");
         }
 
@@ -78,7 +81,7 @@ export default function CreatePost() {
 
                 <input type="submit" value="Criar Artigo" onClick={sendArticle}></input>
             </div>
-            { !localStorage.getItem("tkn") ? <Redirect to="/" /> : ""}
+            { !!redirect ? <Redirect to="/" /> : ""}
         </Container>
 
     )
