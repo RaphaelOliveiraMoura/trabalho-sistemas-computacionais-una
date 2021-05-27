@@ -278,7 +278,7 @@ footer{
     max-width: 65vw;
 }
 
-.create-article-form textarea, .create-article-form input, .create-article-form label{
+.create-article-form textarea, .create-article-form input{
     resize: none;
     width: 70%;
     max-width: 700px;
@@ -293,24 +293,11 @@ footer{
     font-size: 1em;
 }
 
-.create-article-form input[type=file]{
-    display: none;
-}
-
-.create-article-form label{
-    background-color: #2087b3de;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    padding: 6px 20px;
-    text-align: center;
-}
-
 .create-article-form input[type="submit"]{
     width: 20%;
 }
 
-#create-title{
+#create-title, #create-article-img{
     height: 40px;
     font-size: 1em;
 }
