@@ -1,15 +1,15 @@
 import React from 'react';
-import ExampleImg from './../img/post-img.jpg';
 import { Link } from 'react-router-dom';
 
-export default function PostBody({ description }) {
+export default function PostBody({ post }) {
+
     return (
         <>
-            <img src={ExampleImg} alt="Capa da postagem" />
+            <img src={post.image} alt="Capa da postagem" />
             <p>
-                {description}
+                {post.description}
             </p>
-            <Link to='./articlePage'>
+            <Link to={`./articlePage/${post.id}`}>
                 <span>Ler mais...</span>
             </Link>
         </>

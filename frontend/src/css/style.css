@@ -100,6 +100,7 @@ nav ul li:first-child a:before{
 .post-card{
     display: flex;
     flex-direction: column;
+    width: 860px;
     max-width: 65vw;
     min-width: 240px;
     margin: 20px 0;
