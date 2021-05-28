@@ -1,19 +1,20 @@
 import React from 'react';
 import Rating from '@material-ui/lab/Rating';
+import dataFormat from '../utils/dataFormat';
 
 export default function PostCardHeader({ post }) {
-    const { title, postDate, rating } = post
+    const { title, createdAt, rating, author } = post;
     return (
         <div className="post-card-header">
             <div>
                 <h1>{title}</h1>
                 <span>
-                    Postado em {new Date(postDate).getDate()}/{new Date(postDate).getMonth() + 1}/{new Date(postDate).getFullYear()}
+                    <strong>Autor:</strong> {author.name} - <strong>Postado em:</strong> {dataFormat(createdAt)}
                 </span>
             </div>
             <div className="rating">
                 <h3>Avaliação</h3>
-                <Rating size="large" name="post-rating" readOnly value={rating} />
+                <Rating size="large" name="post-rating" readOnly value={rating.total} />
             </div>
         </div>
     )

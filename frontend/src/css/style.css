@@ -100,6 +100,7 @@ nav ul li:first-child a:before{
 .post-card{
     display: flex;
     flex-direction: column;
+    width: 860px;
     max-width: 65vw;
     min-width: 240px;
     margin: 20px 0;
@@ -209,6 +210,11 @@ footer{
 
 .article-body img{
     width: 100%;
+    margin-bottom: 25px;
+}
+
+.article-body p{
+    margin: 5px 0;
 }
 
 .article-footer{
@@ -217,6 +223,7 @@ footer{
     border-top: 3px solid #2088b3;
     border-bottom: 3px solid #2088b3;
     padding: 20px 0;
+    margin-top: 20px;
 }
 
 .article-rate{
@@ -278,7 +285,7 @@ footer{
     max-width: 65vw;
 }
 
-.create-article-form textarea, .create-article-form input, .create-article-form label{
+.create-article-form textarea, .create-article-form input{
     resize: none;
     width: 70%;
     max-width: 700px;
@@ -293,24 +300,11 @@ footer{
     font-size: 1em;
 }
 
-.create-article-form input[type=file]{
-    display: none;
-}
-
-.create-article-form label{
-    background-color: #2087b3de;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    padding: 6px 20px;
-    text-align: center;
-}
-
 .create-article-form input[type="submit"]{
     width: 20%;
 }
 
-#create-title{
+#create-title, #create-article-img{
     height: 40px;
     font-size: 1em;
 }

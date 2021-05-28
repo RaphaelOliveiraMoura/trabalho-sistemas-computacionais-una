@@ -13,26 +13,11 @@ export default function App() {
   }, [])
 
   async function mountPage() {
-    //const pagesRequest = await fetch();
-    //const pagesResponse = await pagesRequest.json();
-
-    const pagesResponse = [
-      {
-        id: 1,
-        title: "Meu primeiro post",
-        postDate: "2020-10-07T21:38:06.932Z",
-        rating: 4.3,
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dolor erat, ultricies at eleifend sed, scelerisque at risus."
-      },
-      {
-        id: 2,
-        title: "Meu segundo post",
-        postDate: "2021-05-05T21:38:06.932Z",
-        rating: 3,
-        description: "Nunc eu tempus nisl, ornare pulvinar dui. Ut tempus ullamcorper purus in interdum."
-      }
-    ];
-    setPosts(pagesResponse);
+    const baseUrl = "http://54.234.248.140:3333/posts";
+    const headers = { "authorization": "Bearer " + localStorage.getItem("tkn") }
+    const pagesRequest = await fetch(baseUrl, { method: "GET", headers: headers });
+    const pagesResponse = await pagesRequest.json();
+    setPosts(pagesResponse.reverse());
   }
 
   return (
