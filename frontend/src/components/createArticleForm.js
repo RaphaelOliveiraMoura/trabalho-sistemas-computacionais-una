@@ -81,7 +81,7 @@ export default function CreatePost() {
 
                 <input type="submit" value="Criar Artigo" onClick={sendArticle}></input>
             </div>
-            { !!redirect ? <Redirect to="/" /> : ""}
+            { !redirect ? <Redirect to="/" /> : ""}
         </Container>
 
     )
