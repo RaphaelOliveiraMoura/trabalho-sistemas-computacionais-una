@@ -1,18 +1,18 @@
 import React from 'react';
+import dataFormat from '../utils/dataFormat';
 import Rating from '@material-ui/lab/Rating';
 
-export default function ArticleHeader({ post }) {
-    const { title, autor, postDate, rating } = post;
+export default function ArticleHeader({ title, date, author, rating }) {
     return (
         <>
             <div className="article-header">
                 <div className="article-title">
                     <h1>{title}</h1>
-                    <span>{autor} - {new Date(postDate).getDate()}/{new Date(postDate).getMonth() + 1}/{new Date(postDate).getFullYear()}</span>
+                    <strong>Autor:</strong> {!author ? "" : author.name} - <strong>Postado em:</strong> {dataFormat(date)}
                 </div>
                 <div className="rating">
                     <h3>Avaliação</h3>
-                    <Rating name="avaliacao" size="large" readOnly value={rating} />
+                    <Rating name="avaliacao" size="large" readOnly value={!rating ? 0 : rating.total} />
                 </div>
             </div>
         </>

@@ -13,7 +13,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route exact path='/' component={App} />
-      <Route exact path='/articlePage' component={ArticlePage} />
+      <Route exact path='/articlePage/:id' component={ArticlePage} />
       <Route exact path='/createArticlePage' component={CreateArticle} />
       <Route exact path='/login' component={Login} />
       <Route exact path='/register' component={Register} />

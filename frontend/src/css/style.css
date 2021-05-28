@@ -210,6 +210,11 @@ footer{
 
 .article-body img{
     width: 100%;
+    margin-bottom: 25px;
+}
+
+.article-body p{
+    margin: 5px 0;
 }
 
 .article-footer{
@@ -218,6 +223,7 @@ footer{
     border-top: 3px solid #2088b3;
     border-bottom: 3px solid #2088b3;
     padding: 20px 0;
+    margin-top: 20px;
 }
 
 .article-rate{
