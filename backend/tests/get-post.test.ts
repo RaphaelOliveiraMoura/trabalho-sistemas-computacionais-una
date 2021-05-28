@@ -25,10 +25,10 @@ describe('GetPost', () => {
     expect(await userRepository.count()).toBe(0);
   });
 
-  test('should return 401 when try acesss route without authorization', async () => {
+  test('should not return 401 when try acesss route without authorization header', async () => {
     const response = await supertest(app).get('/posts/1').send();
 
-    expect(response.status).toBe(401);
+    expect(response.status).not.toBe(401);
   });
 
   test('should get a post by id', async () => {

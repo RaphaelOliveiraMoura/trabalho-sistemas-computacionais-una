@@ -1,6 +1,5 @@
 import { ListPostsService } from '@/data/services';
 import { AuthorizationService } from '@/data/services/authorization';
-import { InvalidAuthorizationError } from '@/domain/errors';
 import {
   Controller,
   HttpRequest,
@@ -8,7 +7,6 @@ import {
   HttpResponseError,
   ok,
   serverError,
-  unauthorized,
 } from '@/presentation/contracts';
 import { PostViewModel } from '@/presentation/view-models';
 
@@ -23,16 +21,25 @@ export class ListPostsController implements Controller {
   ): Promise<HttpResponse<PostViewModel[] | HttpResponseError>> {
     try {
       const { authorization } = httpRequest.headers;
-      const user = await this.authorizationService.authorize(authorization);
+      const user = await this.isAuthenticated(authorization);
 
       const posts = await this.listPostsService.list();
 
+      if (!user) {
+        return ok(PostViewModel.parseArray(posts));
+      }
+
       return ok(PostViewModel.parseArray(posts, user.id));
     } catch (error) {
-      if (error instanceof InvalidAuthorizationError)
-        return unauthorized(error);
-
       return serverError(error);
+    }
+  }
+
+  async isAuthenticated(authorization: string) {
+    try {
+      return await this.authorizationService.authorize(authorization);
+    } catch (error) {
+      return null;
     }
   }
 }

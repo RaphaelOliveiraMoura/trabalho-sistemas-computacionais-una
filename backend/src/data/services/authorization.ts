@@ -26,12 +26,12 @@ export class AuthorizationService {
         'authorization must have `Bearer Token` format'
       );
 
-    const { id } = await this.hasher.decode(token);
+    const decodedToken = await this.hasher.decode(token);
 
-    if (!id)
+    if (!decodedToken || !decodedToken.id)
       throw new InvalidAuthorizationError('authorization Token is invalid');
 
-    const user = await this.userRepository.findById(id);
+    const user = await this.userRepository.findById(decodedToken.id);
 
     if (!user)
       throw new InvalidAuthorizationError('authorization Token is invalid');

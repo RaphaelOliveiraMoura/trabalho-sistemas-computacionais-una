@@ -24,7 +24,7 @@ export class PostViewModel {
     name: string;
   };
 
-  static parse(post: Post, currentUserId: string): PostViewModel {
+  static parse(post: Post, currentUserId?: string): PostViewModel {
     const ratingSum = post.rating.reduce((acc, curr) => acc + curr.value, 0);
     const ratingAvg = ratingSum / post.rating.length || 0;
 
@@ -66,7 +66,7 @@ export class PostViewModel {
 
   static parseArray(
     posts: ListPosts.Result,
-    currentUserId: string
+    currentUserId?: string
   ): PostViewModel[] {
     return posts.map((post) => this.parse(post, currentUserId));
   }

@@ -89,7 +89,7 @@ describe('ListPosts', () => {
       })
       .expect(200);
 
-    await supertest(app).get('/posts').send().expect(401);
+    await supertest(app).get('/posts').send().expect(200);
 
     await supertest(app)
       .get('/posts')
