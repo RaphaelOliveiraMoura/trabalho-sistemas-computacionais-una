@@ -9,7 +9,7 @@ export default function PostCardHeader({ post }) {
             <div>
                 <h1>{title}</h1>
                 <span>
-                    <strong>Autor:</strong> {author.name} - <strong>Postado em:</strong> {dataFormat(createdAt)}
+                    <p><strong>Autor:</strong> {!author ? "" : author.name}</p> <p><strong>Postado em:</strong> {dataFormat(createdAt)}</p>
                 </span>
             </div>
             <div className="rating">
