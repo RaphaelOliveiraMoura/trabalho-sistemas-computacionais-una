@@ -144,7 +144,27 @@ nav ul li:first-child a:before{
 
 .post-card a:hover{
     color: #2087b3de;
-    background: #fff;
+    background: rgba(255, 255, 255, 0);
+    border: 1px solid #2087b3de;
+}
+
+#reload button{
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    background: #2087b3;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid #2087b3de;
+    border-radius: 5px;
+    cursor: pointer;
+    max-width: 250px;
+    font-size: 0.9em;
+}
+
+#reload button:hover{
+    color: #fff;
+    background: #155875de;
     border: 1px solid #2087b3de;
 }
 
