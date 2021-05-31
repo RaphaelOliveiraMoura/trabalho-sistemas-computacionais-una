@@ -53,7 +53,7 @@ header{
     background: linear-gradient(to right, #2087b3, #2087b3, #2087b3);
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 20;
 }
 
 header h1{
@@ -305,6 +305,39 @@ footer{
 
 .comments p{
     font-size: 0.9em;
+}
+
+.not-logged{
+    width: 100%;
+    filter: blur(10px);
+    position: relative;
+}
+
+.paywall{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+
+}
+
+.paywall a{
+    color: #fff;
+    background: #2087b3;
+    margin: 0 auto 20px auto;
+    padding: 10px;
+    border: 1px solid #2087b3de;
+    border-radius: 5px;
+    cursor: pointer;
+    max-width: 250px;
+    font-size: 0.9em;
+}
+
+.paywall a:hover{
+    color: #2087b3de;
+    background: rgba(255, 255, 255, 0);
+    border: 1px solid #2087b3de;
 }
 
 #logo{
