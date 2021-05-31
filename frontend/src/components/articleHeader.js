@@ -3,12 +3,17 @@ import dataFormat from '../utils/dataFormat';
 import Rating from '@material-ui/lab/Rating';
 
 export default function ArticleHeader({ title, date, author, rating }) {
+
+    if (!author) {
+        return <div></div>
+    }
+
     return (
         <>
             <div className="article-header">
                 <div className="article-title">
                     <h1>{title}</h1>
-                    <strong>Autor:</strong> {!author ? "" : author.name} - <strong>Postado em:</strong> {dataFormat(date)}
+                    <p><strong>Autor:</strong> {!author ? "" : author.name}</p> <p><strong>Postado em:</strong> {dataFormat(date)}</p>
                 </div>
                 <div className="rating">
                     <h3>Avaliação</h3>

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap');
+
 *{
     box-sizing: border-box;
 }
@@ -9,7 +11,7 @@ body, html{
 }
 
 body{
-    font-family:'Times New Roman', Times, serif;
+    font-family:'Roboto';
     font-size: 18px;
     background: url("../img/white-background.jpg") no-repeat;
     background-size: cover;
@@ -48,7 +50,10 @@ header{
     align-items: center;
     width: 100vw;
     min-height: 60px;
-    background: linear-gradient(to right, #2087b3de, #2087b3d8, #2087b331);
+    background: linear-gradient(to right, #2087b3, #2087b3, #2087b3);
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 header h1{
@@ -192,8 +197,8 @@ footer{
     border-bottom: 3px solid #2088b3;
 }
 
-.article-header .rating, .article-header .article-title{
-    margin-bottom: 25px;
+.article-header h1{
+    color: #2088b3;
 }
 
 .article-header .article-title > span{
@@ -263,6 +268,23 @@ footer{
     width: 30%;
     min-width: 100px;
     height: 40px;
+}
+
+.comments{
+    margin-top: 20px;
+    padding: 0 5px;
+    border: 1px solid #596368de;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px #000;
+    background-color: #ecececde ;
+}
+
+.comments h5{
+    margin: 10px 0;
+}
+
+.comments p{
+    font-size: 0.9em;
 }
 
 #logo{
