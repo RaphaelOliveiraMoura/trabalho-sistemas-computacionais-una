@@ -17,7 +17,6 @@ export default function App() {
     const headers = { "authorization": "Bearer " + localStorage.getItem("tkn") }
     const pagesRequest = await fetch(baseUrl, { method: "GET", headers: headers });
     const pagesResponse = await pagesRequest.json();
-    console.log(pagesResponse)
     setPosts(pagesResponse.reverse());
   }
 
