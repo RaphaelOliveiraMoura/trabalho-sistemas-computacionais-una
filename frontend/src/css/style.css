@@ -340,6 +340,22 @@ footer{
     border: 1px solid #2087b3de;
 }
 
+@keyframes loading {
+    0% { transform: rotate(0);}
+    100% {transform: rotate(360deg);}
+}
+
+#loading{
+    margin: 0 auto;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    border-top: 2px solid #2087b3de;
+    border-right: 2px solid #2087b3de;
+    border-bottom: 2px solid #2087b3de;
+    animation: loading 1s infinite;
+}
+
 #logo{
     max-width: 240px;
 }

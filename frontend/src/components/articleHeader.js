@@ -3,9 +3,12 @@ import dataFormat from '../utils/dataFormat';
 import Rating from '@material-ui/lab/Rating';
 
 export default function ArticleHeader({ title, date, author, rating }) {
-
-    if (!author) {
-        return <div></div>
+    if (!author || !title || !date || !rating) {
+        return (
+            <>
+                <div id="loading"></div>
+            </>
+        )
     }
 
     return (

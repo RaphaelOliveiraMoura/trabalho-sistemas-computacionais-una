@@ -2,6 +2,13 @@ import React from 'react';
 
 export default function ArticleBody({ description, body, image }) {
 
+    if (!description || !body || !image) {
+        return (
+            <>
+            </>
+        );
+    }
+
     return (
         <>
             <div className="article-body">
