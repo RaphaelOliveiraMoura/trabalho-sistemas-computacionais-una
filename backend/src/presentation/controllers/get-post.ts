@@ -1,6 +1,6 @@
 import { AuthorizationService } from '@/data/services/authorization';
 import { GetPostService } from '@/data/services/get-post';
-import { InvalidAuthorizationError, InvalidPostError } from '@/domain/errors';
+import { InvalidPostError } from '@/domain/errors';
 import {
   badRequest,
   Controller,
@@ -8,7 +8,6 @@ import {
   HttpResponse,
   HttpResponseError,
   serverError,
-  unauthorized,
   ok,
 } from '@/presentation/contracts';
 import { BodyValidationError } from '@/presentation/errors';
@@ -25,17 +24,19 @@ export class GetPostController implements Controller {
   ): Promise<HttpResponse<PostViewModel | HttpResponseError>> {
     try {
       const { authorization } = httpRequest.headers;
-      const user = await this.authorizationService.authorize(authorization);
+      const user = await this.isAuthenticated(authorization);
 
       const { id: postId } = httpRequest.params;
 
       const post = await this.getPostService.get({ postId });
 
+      if (!user) {
+        return ok(PostViewModel.parse(post));
+      }
+
       return ok(PostViewModel.parse(post, user.id));
     } catch (error) {
       switch (error.constructor) {
-        case InvalidAuthorizationError:
-          return unauthorized(error);
         case InvalidPostError:
           return badRequest(error);
         case BodyValidationError:
@@ -43,6 +44,14 @@ export class GetPostController implements Controller {
         default:
           return serverError(error);
       }
+    }
+  }
+
+  async isAuthenticated(authorization: string) {
+    try {
+      return await this.authorizationService.authorize(authorization);
+    } catch (error) {
+      return null;
     }
   }
 }

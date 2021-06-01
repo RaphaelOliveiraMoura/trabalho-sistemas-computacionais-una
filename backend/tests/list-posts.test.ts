@@ -22,10 +22,10 @@ describe('ListPosts', () => {
     await postRepository.deleteAll();
   });
 
-  test('should return 401 when try acesss route without authorization', async () => {
+  test('should return 200 when try acesss route without authorization header', async () => {
     const response = await supertest(app).get('/posts').send();
 
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(200);
   });
 
   test('should list posts', async () => {
