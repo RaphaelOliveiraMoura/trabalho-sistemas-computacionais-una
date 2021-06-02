@@ -1,9 +1,48 @@
 import Rating from '@material-ui/lab/Rating';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import isLogged from '../utils/isLogged';
 
 export default function ArticleFooter({ post: { id, comments } }) {
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
+
+    function mountSendRating() {
+        if (isLogged()) {
+            return (
+                <div className="article-rate">
+                    <span>Avalie esse artigo</span>
+                    <Rating
+                        name="sendRate"
+                        value={rating}
+                        onChange={(e) => setRating(parseInt(e.target.value))} />
+                    <input
+                        type="submit"
+                        name="sendRate"
+                        value="Avaliar"
+                        onClick={sendRating}></input>
+                </div>
+            );
+        } else {
+            return (
+                <div className="not-logged">
+                    <div className="article-rate">
+                        <span>Avalie esse artigo</span>
+                        <Rating
+                            name="sendRate"
+                            readOnly
+                        />
+                        <input
+                            type="submit"
+                            name="sendRate"
+                            value="Avaliar"
+                            disabled></input>
+                    </div>
+                </div>
+
+            );
+        }
+    }
 
     async function sendRating() {
         const baseUrl = "http://54.234.248.140:3333/posts/" + id + "/rate";
@@ -19,6 +58,57 @@ export default function ArticleFooter({ post: { id, comments } }) {
 
     }
 
+    function mountSendComments() {
+        if (isLogged()) {
+            return (
+                <div className="article-comments">
+                    <h2>Comentários</h2>
+                    <textarea
+                        name="comment"
+                        id="comment-text"
+                        rows="10"
+                        cols="100"
+                        placeholder="Escreva um comentario"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}>
+                    </textarea>
+                    <input
+                        type="submit"
+                        name="sendComment"
+                        value="Comentar"
+                        onClick={sendComment}>
+                    </input>
+                </div>
+            );
+        } else {
+            return (
+                <div className="not-logged">
+                    <div className="article-comments">
+                        <h2>Comentários</h2>
+                        <textarea
+                            name="comment"
+                            id="comment-text"
+                            rows="10"
+                            cols="100"
+                            placeholder="Escreva um comentario"
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            disabled
+                        >
+                        </textarea>
+                        <input
+                            type="submit"
+                            name="sendComment"
+                            value="Comentar"
+                            disabled
+                        >
+                        </input>
+                    </div>
+                </div>
+            );
+        };
+    }
+
     async function sendComment() {
         const baseUrl = "http://54.234.248.140:3333/posts/" + id + "/comment";
         const headers = {
@@ -30,33 +120,31 @@ export default function ArticleFooter({ post: { id, comments } }) {
             body: JSON.stringify({ text: comment })
         });
 
+        setComment("");
     }
 
     function mountComments() {
 
         if (!!comments) {
             return (
-                comments.reverse().map((atual) => <div key={atual.id} className="comments"><h5>{atual.author.name} comentou:</h5><p>{atual.text}</p></div>)
+                comments.sort((a, b) => { return b.id - a.id; }).map((atual) => <div key={atual.id} className="comments"><h5>{atual.author.name} comentou:</h5><p>{atual.text}</p></div>)
             );
-        }
+        };
     }
 
     return (
         <>
             <div className="article-footer">
-                <div className="article-rate">
-                    <span>Avalie esse artigo</span>
-                    <Rating name="sendRate" value={rating} onChange={(e) => setRating(parseInt(e.target.value))} />
-                    <input type="submit" name="sendRate" value="Avaliar" onClick={sendRating}></input>
-                </div>
+                {mountSendRating()}
+                {!isLogged() ? <div className="paywall">
+                    <p>Faça Login para comentar e avaliar</p>
+                    <Link to={'./../login'} >
+                        <span>Login</span>
+                    </Link></div> : ""}
+                {mountSendComments()}
 
-                <div className="article-comments">
-                    <h2>Comentários</h2>
-                    <textarea name="comment" id="comment-text" rows="10" cols="100" placeholder="Escreva um comentario" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
-                    <input type="submit" name="sendComment" value="Comentar" onClick={sendComment}></input>
-                </div>
             </div>
-            { mountComments()}
+            {mountComments()}
         </>
     )
 }

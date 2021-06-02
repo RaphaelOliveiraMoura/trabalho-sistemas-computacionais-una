@@ -25,7 +25,9 @@ export default function ArticlePage({ match: { params: { id } } }) {
     }
 
     return (
+
         <>
+            {window.scrollTo(0, 0)}
             <Header />
             <Container>
                 {
