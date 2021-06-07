@@ -53,6 +53,43 @@ export default function ArticleFooter({ post: { id, comments } }) {
         }
     }
 
+    function mountSendRating() {
+        if (isLogged()) {
+            return (
+                <div className="article-rate">
+                    <span>Avalie esse artigo</span>
+                    <Rating
+                        name="sendRate"
+                        value={rating}
+                        onChange={(e) => setRating(parseInt(e.target.value))} />
+                    <input
+                        type="submit"
+                        name="sendRate"
+                        value="Avaliar"
+                        onClick={sendRating}></input>
+                </div>
+            );
+        } else {
+            return (
+                <div className="not-logged">
+                    <div className="article-rate">
+                        <span>Avalie esse artigo</span>
+                        <Rating
+                            name="sendRate"
+                            readOnly
+                        />
+                        <input
+                            type="submit"
+                            name="sendRate"
+                            value="Avaliar"
+                            disabled></input>
+                    </div>
+                </div>
+
+            );
+        }
+    }
+
     async function sendRating() {
         const baseUrl = "http://54.234.248.140:3333/posts/" + id + "/rate";
         const headers = {
@@ -121,6 +158,57 @@ export default function ArticleFooter({ post: { id, comments } }) {
         };
     }
 
+    function mountSendComments() {
+        if (isLogged()) {
+            return (
+                <div className="article-comments">
+                    <h2>Comentários</h2>
+                    <textarea
+                        name="comment"
+                        id="comment-text"
+                        rows="10"
+                        cols="100"
+                        placeholder="Escreva um comentario"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}>
+                    </textarea>
+                    <input
+                        type="submit"
+                        name="sendComment"
+                        value="Comentar"
+                        onClick={sendComment}>
+                    </input>
+                </div>
+            );
+        } else {
+            return (
+                <div className="not-logged">
+                    <div className="article-comments">
+                        <h2>Comentários</h2>
+                        <textarea
+                            name="comment"
+                            id="comment-text"
+                            rows="10"
+                            cols="100"
+                            placeholder="Escreva um comentario"
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            disabled
+                        >
+                        </textarea>
+                        <input
+                            type="submit"
+                            name="sendComment"
+                            value="Comentar"
+                            disabled
+                        >
+                        </input>
+                    </div>
+                </div>
+            );
+        };
+    }
+
     async function sendComment() {
         const baseUrl = "http://54.234.248.140:3333/posts/" + id + "/comment";
         const headers = {
@@ -135,6 +223,7 @@ export default function ArticleFooter({ post: { id, comments } }) {
         setComment("");
     }
 
+
     async function getComments() {
         const baseUrl = "http://54.234.248.140:3333/posts/";
         const headers = { "authorization": "Bearer " + localStorage.getItem("tkn") };
@@ -144,6 +233,7 @@ export default function ArticleFooter({ post: { id, comments } }) {
         });
         const articleResponse = await articleRequest.json();
         setAllComments(articleResponse.comments);
+        setComment("");
     }
 
     function mountComments() {
