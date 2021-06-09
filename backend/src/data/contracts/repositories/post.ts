@@ -1,5 +1,10 @@
 import { Post, PostComment } from '@/domain/models';
-import { CommentPost, CreatePost, RatePost } from '@/domain/use-cases';
+import {
+  CommentPost,
+  CreatePost,
+  DeletePost,
+  RatePost,
+} from '@/domain/use-cases';
 
 export interface PostRepository {
   count: () => Promise<number>;
@@ -15,4 +20,6 @@ export interface PostRepository {
   createRating: (params: RatePost.Params) => Promise<Post>;
 
   deleteAll: () => Promise<boolean>;
+
+  deleteById: (params: DeletePost.Params) => Promise<boolean>;
 }

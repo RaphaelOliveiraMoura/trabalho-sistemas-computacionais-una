@@ -7,7 +7,12 @@ import { mapComment, mapRating } from './utils/mappers';
 import { SQLiteDatabase } from '.';
 import { PostRepository } from '@/data/contracts';
 import { Post, PostComment } from '@/domain/models';
-import { CommentPost, CreatePost, RatePost } from '@/domain/use-cases';
+import {
+  CommentPost,
+  CreatePost,
+  DeletePost,
+  RatePost,
+} from '@/domain/use-cases';
 
 export class SQLitePostRepository implements PostRepository {
   db: Database;
@@ -202,6 +207,11 @@ export class SQLitePostRepository implements PostRepository {
     await this.db.run('DELETE FROM post_comments');
     await this.db.run('DELETE FROM post_ratings');
     await this.db.run('DELETE FROM posts');
+    return true;
+  }
+
+  async deleteById({ postId }: DeletePost.Params): Promise<boolean> {
+    await this.db.run('DELETE FROM posts WHERE rowid = ?', postId);
     return true;
   }
 }

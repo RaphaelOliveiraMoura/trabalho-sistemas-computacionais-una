@@ -4,6 +4,7 @@ import { ExpressRouteAdapter } from '@/main/adapters';
 import {
   buildCommentPostController,
   buildCreatePostController,
+  buildDeletePostController,
   buildGetPostController,
   buildListPostsController,
   buildRatePostController,
@@ -24,5 +25,10 @@ export default function setup(router: Router) {
   router.post(
     '/posts/:id/rate',
     ExpressRouteAdapter.adapt(buildRatePostController())
+  );
+
+  router.delete(
+    '/posts/:id',
+    ExpressRouteAdapter.adapt(buildDeletePostController())
   );
 }

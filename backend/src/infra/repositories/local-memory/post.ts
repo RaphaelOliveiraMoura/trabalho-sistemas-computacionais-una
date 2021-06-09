@@ -2,7 +2,12 @@ import { UserRepository } from '..';
 
 import { PostRepository } from '@/data/contracts';
 import { Post, PostComment } from '@/domain/models';
-import { CommentPost, CreatePost, RatePost } from '@/domain/use-cases';
+import {
+  CommentPost,
+  CreatePost,
+  DeletePost,
+  RatePost,
+} from '@/domain/use-cases';
 
 const posts: Array<Post> = [];
 
@@ -80,6 +85,16 @@ export class LocalMemoryPostRepository implements PostRepository {
 
   async deleteAll(): Promise<boolean> {
     posts.splice(0, posts.length);
+    return true;
+  }
+
+  async deleteById({ postId }: DeletePost.Params): Promise<boolean> {
+    const findedIndex = posts.findIndex((post) => post.id === postId);
+
+    if (findedIndex < 0) return false;
+
+    posts.splice(findedIndex, 1);
+
     return true;
   }
 }

@@ -5,3 +5,4 @@ export * from './create-post';
 export * from './list-posts';
 export * from './rate-post';
 export * from './get-post';
+export * from './delete-post';
