@@ -37,7 +37,8 @@ export default function RegisterForm({ history }) {
 
       return toast.success('Usuário criado com sucesso');
     } catch (error) {
-      const errorMessage = errorsMap[error.message] || 'Erro ao realizar login';
+      const errorMessage =
+        errorsMap[error.message] || 'Erro ao realizar cadastro';
       return toast.error(errorMessage);
     }
   }
