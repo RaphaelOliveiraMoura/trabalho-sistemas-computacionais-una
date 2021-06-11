@@ -1,8 +1,6 @@
 import React from 'react';
 import RegisterForm from './components/registerForm';
 
-export default function Register() {
-    return (
-        <RegisterForm />
-    )
+export default function Register({ history }) {
+  return <RegisterForm history={history} />;
 }
