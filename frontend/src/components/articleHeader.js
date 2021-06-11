@@ -21,27 +21,33 @@ export default function ArticleHeader({
       <div className="article-header">
         <div className="article-title">
           <h1>{title}</h1>
-          <p>
-            <strong>Autor:</strong> {!author ? '' : author.name}
-          </p>
-          <p>
-            <strong>Postado em:</strong> {dataFormat(date)}
-          </p>
         </div>
-        <div className="rating">
-          <h3>Avaliação</h3>
-          <Rating
-            name="avaliacao"
-            size="large"
-            readOnly
-            value={!rating ? 0 : rating.total}
-          />
-          {showDeleteButton && (
-            <button className="delete-button" onClick={onDeletePost}>
-              <AiOutlineDelete size={20} color="#ff5252" />
-              Deletar post
-            </button>
-          )}
+        <div className="article-data">
+          <div>
+            <p>
+              <strong>Autor:</strong> {!author ? '' : author.name}
+            </p>
+            <p>
+              <strong>Postado em:</strong> {dataFormat(date)}
+            </p>
+          </div>
+          <div className="rating">
+            <h3>Avaliação</h3>
+            <Rating
+              name="avaliacao"
+              size="large"
+              readOnly
+              value={!rating ? 0 : rating.total}
+            />
+            {showDeleteButton && (
+              <button className="delete-button" onClick={onDeletePost}>
+                <AiOutlineDelete size={20} color="#ff5252" />
+                Deletar post
+              </button>
+            )}
+          </div>
+
+
         </div>
       </div>
     </>
