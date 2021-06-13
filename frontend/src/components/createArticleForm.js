@@ -20,13 +20,10 @@ export default function CreatePost({ history }) {
 
     async function sendArticle() {
         try {
-            if (image === '') {
-                setImage(ImagePattern)
-            }
             await createPost({
                 title,
                 description,
-                image,
+                image: image || ImagePattern,
                 body: articleBody,
             });
 
