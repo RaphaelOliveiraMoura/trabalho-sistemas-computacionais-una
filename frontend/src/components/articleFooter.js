@@ -11,16 +11,20 @@ export default function ArticleFooter({ post: { id, comments = [] } }) {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [allComments, setAllComments] = useState([...comments]);
+  const [loading, setLoading] = useState(false);
 
   async function onComment() {
     try {
       if (!comment.trim()) return;
+      setLoading(true);
       const createdComment = await sendComment({ postId: id, comment });
       setAllComments([createdComment, ...allComments]);
       setComment('');
       toast.success('Comentário salvo com sucesso');
     } catch (error) {
       toast.error('Não foi possível salvar seu comentário');
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -82,6 +86,7 @@ export default function ArticleFooter({ post: { id, comments = [] } }) {
             type="submit"
             name="sendComment"
             value="Comentar"
+            disabled={loading}
             onClick={onComment}
           ></input>
         </div>

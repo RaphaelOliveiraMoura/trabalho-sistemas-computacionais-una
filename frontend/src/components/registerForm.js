@@ -23,9 +23,11 @@ export default function RegisterForm({ history }) {
   const [name, setname] = useState('');
   const [password, setpassword] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   async function registerUser() {
     try {
+      setLoading(true);
       await signUp({
         email: email.toLowerCase(),
         name: name,
@@ -40,6 +42,8 @@ export default function RegisterForm({ history }) {
       const errorMessage =
         errorsMap[error.message] || 'Erro ao realizar cadastro';
       return toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -100,7 +104,12 @@ export default function RegisterForm({ history }) {
           onChange={(e) => setValues(e)}
           value={confirmPassword}
         ></input>
-        <input type="submit" value="Criar Conta" onClick={registerUser}></input>
+        <input
+          type="submit"
+          value="Criar Conta"
+          disabled={loading}
+          onClick={registerUser}
+        ></input>
       </div>
       <Footer />
     </>
