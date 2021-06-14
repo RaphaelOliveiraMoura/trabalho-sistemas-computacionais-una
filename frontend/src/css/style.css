@@ -124,7 +124,9 @@ nav ul li:first-child a:before {
 
 .post-card h1 {
   font-size: 1.5em;
-  margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0 0 0;
   color: #2087b3de;
 }
 
@@ -252,6 +254,20 @@ footer {
 
 .article-header .delete-button:hover svg {
   color: #fff !important;
+}
+
+.article-data{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.article-data p {
+  margin-top: 0;
+  padding: 0;
 }
 
 .article-body {
@@ -480,7 +496,9 @@ footer {
 
 @media only screen and (max-width: 650px) {
   .article-header,
-  .post-card-header {
+  .post-card-header,
+  .article-data
+  {
     justify-content: center;
     text-align: center;
   }

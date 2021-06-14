@@ -8,18 +8,25 @@ export default function PostCardHeader({ post }) {
     <div className="post-card-header">
       <div>
         <h1>{title}</h1>
-        <span>
+      </div>
+      <div className="article-data">
+        <div>
           <p>
-            <strong>Autor:</strong> {author ? author.name : ''}
+            <strong>Autor:</strong> {!author ? '' : author.name}
           </p>
           <p>
             <strong>Postado em:</strong> {dataFormat(createdAt)}
           </p>
-        </span>
-      </div>
-      <div className="rating">
-        <h3>Avaliação</h3>
-        <Rating size="large" name="post-rating" readOnly value={rating.total} />
+        </div>
+        <div className="rating">
+          <h3>Avaliação</h3>
+          <Rating
+            name="avaliacao"
+            size="large"
+            readOnly
+            value={!rating ? 0 : rating.total}
+          />
+        </div>
       </div>
     </div>
   );
