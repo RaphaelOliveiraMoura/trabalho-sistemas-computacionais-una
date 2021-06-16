@@ -256,13 +256,14 @@ footer {
   color: #fff !important;
 }
 
-.article-data{
+.article-data {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   width: 100%;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .article-data p {
@@ -497,8 +498,7 @@ footer {
 @media only screen and (max-width: 650px) {
   .article-header,
   .post-card-header,
-  .article-data
-  {
+  .article-data {
     justify-content: center;
     text-align: center;
   }
