@@ -210,8 +210,26 @@ export class SQLitePostRepository implements PostRepository {
     return true;
   }
 
+  async countComments(): Promise<number> {
+    const result = await this.db.get(
+      'SELECT COUNT(*) as total FROM post_comments'
+    );
+
+    return result.total || 0;
+  }
+
+  async countRatings(): Promise<number> {
+    const result = await this.db.get(
+      'SELECT COUNT(*) as total FROM post_ratings'
+    );
+
+    return result.total || 0;
+  }
+
   async deleteById({ postId }: DeletePost.Params): Promise<boolean> {
     await this.db.run('DELETE FROM posts WHERE rowid = ?', postId);
+    await this.db.run('DELETE FROM post_ratings WHERE post_id = ?', postId);
+    await this.db.run('DELETE FROM post_comments WHERE post_id = ?', postId);
     return true;
   }
 }

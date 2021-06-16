@@ -71,7 +71,7 @@ describe('DeletePost', () => {
     expect(await postRepository.findById(createdPost.id)).toBeTruthy();
   });
 
-  test('should delete a post', async () => {
+  test('should delete a post and comments & ratings', async () => {
     const { authorization, user } = await signIn(app);
 
     const post = new PostBuilder().build();
@@ -84,6 +84,23 @@ describe('DeletePost', () => {
 
     expect(await postRepository.findById(createdPost.id)).toBeTruthy();
 
+    await postRepository.createComment({
+      authorId: user.id,
+      postId: createdPost.id,
+      text: 'comment',
+    });
+
+    await postRepository.createRating({
+      userId: user.id,
+      postId: createdPost.id,
+      rating: 2,
+    });
+
+    expect(await postRepository.findById(createdPost.id)).toBeTruthy();
+
+    expect(await postRepository.countComments()).toBe(1);
+    expect(await postRepository.countRatings()).toBe(1);
+
     const response = await supertest(app)
       .delete(`/posts/${createdPost.id}`)
       .set('authorization', authorization)
@@ -93,5 +110,8 @@ describe('DeletePost', () => {
     expect(response.status).toBe(200);
 
     expect(await postRepository.findById(createdPost.id)).not.toBeTruthy();
+
+    expect(await postRepository.countComments()).toBe(0);
+    expect(await postRepository.countRatings()).toBe(0);
   });
 });
