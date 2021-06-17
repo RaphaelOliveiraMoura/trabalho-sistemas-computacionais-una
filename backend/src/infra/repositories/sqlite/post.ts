@@ -85,7 +85,9 @@ export class SQLitePostRepository implements PostRepository {
     const posts: Post[] = [];
 
     results.forEach((row) => {
-      const postIndex = posts.findIndex(({ id }) => String(row.id) === id);
+      const postIndex = posts.findIndex(
+        ({ id }) => String(row.id) === String(id)
+      );
 
       if (postIndex >= 0) {
         posts[postIndex].rating.push({
@@ -94,7 +96,7 @@ export class SQLitePostRepository implements PostRepository {
         });
       } else {
         posts.push({
-          id: row.id,
+          id: String(row.id),
           title: row.title,
           description: row.description,
           body: row.body,
